@@ -34,6 +34,23 @@
     <h1>Codecool Shop</h1>
 </div>
 
+<div class="row dropdown">
+    <div class="column">
+        <strong >Category: </strong>
+        <select id="categories">
+            <option value="0">all</option>
+            <option th:each="category : ${categories}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
+        </select>
+    </div>
+    <div class="column">
+        <strong >Supplier: </strong>
+        <select id="suppliers">
+            <option value="0">all</option>
+            <option th:each="supplier : ${suppliers}" th:value="${supplier.getId()}" th:text="${supplier.getName()}"></option>
+        </select>
+    </div>
+</div>
+
 <div class="container">
     <div class="card">
         <strong th:text="${category.name}">Category Title</strong>
