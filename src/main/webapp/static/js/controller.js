@@ -1,4 +1,4 @@
-import {getResponse} from "./model.js";
+import {getCategoriesById, getProductsByCategoryId, getResponse} from "./model.js";
 import {addEventListener} from "./view.js";
 
 function initialize(){
@@ -7,7 +7,7 @@ function initialize(){
 }
 
 function loadFilteredProducts(e){
-    console.log(e.target.value);
+    let products = getProductsByCategoryId(e.target.value);
 }
 
 initialize();
