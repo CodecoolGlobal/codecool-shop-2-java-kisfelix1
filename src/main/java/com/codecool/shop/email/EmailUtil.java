@@ -39,14 +39,14 @@ public class EmailUtil {
         message.setFrom(new InternetAddress(myEmail));
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
         message.setSubject("Order Confirmation");
-        // message.setText("lmao xd szkruu szkruu");
-        // TODO: This needs to work with HTML file
+        // TODO: This needs to work with Thymeleaf
         String htmlContent = readHtml();
         message.setContent(htmlContent, "text/html");
         return message;
     }
 
     private static String readHtml(){
+        // Temporary
         StringBuilder contentBuilder = new StringBuilder();
         try {
             BufferedReader in = new BufferedReader(new FileReader("src/main/webapp/templates/order_confirmation.html"));
