@@ -64,7 +64,7 @@
                             <th scope="col">Actions</th>
                         </tr>
                         </thead>
-                        <tbody class="modal-body">
+                        <tbody class="modal-body" id="cart-body">
 
                         </tbody>
                     </table>
@@ -92,7 +92,7 @@
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                        <button th:data-btn-id="${prod.id}" class="btn btn-success cart-btn">Add to cart</button>
                     </div>
                 </div>
             </div>
