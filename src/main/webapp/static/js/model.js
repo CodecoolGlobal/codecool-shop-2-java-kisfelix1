@@ -6,6 +6,6 @@ async function getResponse(url) {
 }
 
 async function getProductsByCategoryId(id) {
-    return getResponse(`/get/category/${id}`);
+    return getResponse(`/api/filter?categoryId=${id}`);
 }
 
