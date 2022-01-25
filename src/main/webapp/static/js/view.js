@@ -1,4 +1,4 @@
-import {getResponse} from "./model";
+import {getResponse} from "./model.js";
 
 export {addEventListener,addEventListenerToAll, loadCart, addToCart};
 
@@ -34,10 +34,12 @@ async function loadCart() {
             </td>
         </tr>`
     }).join("")
-    loadContent("cart-modal", cartContent)
+    loadContent("#cart-body", cartContent)
 }
 
 async function addToCart(e) {
-
+    const id = e.target.dataset.btnId
+    const url = `/api/add_cart?itemId=${id}`
+    console.log(getResponse(url))
 }
 

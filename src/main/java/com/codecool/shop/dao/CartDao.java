@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CartDao {
 
-    void add(CartProduct item);
+    void add(Product product, int amount);
     void edit(int value, int id);
     Product find(int id);
     void remove(int id);
