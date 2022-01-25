@@ -4,6 +4,9 @@ import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Properties;
 
 public class EmailUtil {
@@ -36,9 +39,25 @@ public class EmailUtil {
         message.setFrom(new InternetAddress(myEmail));
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
         message.setSubject("Order Confirmation");
-        message.setText("lmao xd szkruu szkruu");
+        // message.setText("lmao xd szkruu szkruu");
         // TODO: This needs to work with HTML file
-        // message.setContent("PLACE OF HTML CODE", text/html)
+        String htmlContent = readHtml();
+        message.setContent(htmlContent, "text/html");
         return message;
+    }
+
+    private static String readHtml(){
+        StringBuilder contentBuilder = new StringBuilder();
+        try {
+            BufferedReader in = new BufferedReader(new FileReader("src/main/webapp/templates/order_confirmation.html"));
+            String str;
+            while ((str = in.readLine()) != null) {
+                contentBuilder.append(str);
+            }
+            in.close();
+        } catch (IOException e) {
+        }
+        String content = contentBuilder.toString();
+        return content;
     }
 }
