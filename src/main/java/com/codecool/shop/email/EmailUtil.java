@@ -1,5 +1,8 @@
 package com.codecool.shop.email;
 
+import com.codecool.shop.config.TemplateEngineUtil;
+import org.thymeleaf.TemplateEngine;
+
 import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
