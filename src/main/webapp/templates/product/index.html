@@ -34,12 +34,25 @@
     <h1>Codecool Shop</h1>
 </div>
 
-<div class="container">
-    <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
+<div class="row dropdown">
+    <div class="column">
+        <strong >Category: </strong>
+        <select id="categories">
+            <option value="0">all</option>
+            <option th:each="category : ${categories}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
+        </select>
     </div>
+    <div class="column">
+        <strong >Supplier: </strong>
+        <select id="suppliers">
+            <option value="0">all</option>
+            <option th:each="supplier : ${suppliers}" th:value="${supplier.getId()}" th:text="${supplier.getName()}"></option>
+        </select>
+    </div>
+</div>
 
-    <div id="products" class="row">
+<div class="container" id="products-container">
+    <div class="row" id="products">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="card">
                 <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
