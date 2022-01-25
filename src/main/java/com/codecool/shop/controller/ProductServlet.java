@@ -31,14 +31,15 @@ public class ProductServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         PrintWriter out = resp.getWriter();
         String categoryId = req.getParameter("categoryId");
+        String supplierId = req.getParameter("supplierId");
         List<Product> products = ProductDaoMem
                 .getInstance()
                 .getAll()
                 .stream()
-                .filter(product -> product
-                        .getProductCategory().getId()==Integer.parseInt(categoryId))
+                .filter(product -> (product
+                        .getProductCategory().getId()==Integer.parseInt(categoryId)||categoryId.equals("0"))&&
+                        (product.getSupplier().getId()==Integer.parseInt(supplierId)||supplierId.equals("0")))
                 .collect(Collectors.toList());
-        System.out.println(products);
         out.println(new Gson().toJson(products));
         out.flush();
     }

@@ -1,11 +1,11 @@
-export {getProductsByCategoryId};
+export {getProductsFiltered};
 
 async function getResponse(url) {
     const response = await fetch(url);
     return response.json();
 }
 
-async function getProductsByCategoryId(id) {
-    return getResponse(`/api/filter?categoryId=${id}`);
+async function getProductsFiltered(categoryId, supplierId) {
+    return getResponse(`/api/filter?categoryId=${categoryId}&supplierId=${supplierId}`);
 }
 
