@@ -6,8 +6,9 @@ async function initialize(){
     addEventListenerToAll(".cart-btn", addToCart);
     addEventListener('#categories', loadFilteredProducts);
     addEventListener('#suppliers', loadFilteredProducts);
+    addEventListener('#paypal-id', modalPaymentPaypalChange);
+    addEventListener('#creditcard-id',modalPaymentCreditChange);
     modalCloseOpen();
-    modalPaymentChange();
     await doPayment();
 }
 
@@ -45,21 +46,18 @@ function modalCloseOpen() {
         }
     }
 }
+function modalPaymentPaypalChange() {
+    document.querySelector("#paypal-container").classList.add("show");
+    document.querySelector("#credit-container").classList.remove("show");
+    document.querySelector("#paypal-id").classList.add("blue");
+    document.querySelector("#creditcard-id").classList.remove("blue");
+}
 
-function modalPaymentChange() {
-    document.querySelector("#paypal-id").addEventListener("click", () => {
-        document.querySelector("#paypal-container").classList.add("show");
-        document.querySelector("#credit-container").classList.remove("show");
-        document.querySelector("#paypal-id").classList.add("blue");
-        document.querySelector("#creditcard-id").classList.remove("blue");
-    })
-    document.querySelector("#creditcard-id").addEventListener("click", () => {
-
-        document.querySelector("#paypal-container").classList.remove("show");
-        document.querySelector("#credit-container").classList.add("show");
-        document.querySelector("#paypal-id").classList.remove("blue");
-        document.querySelector("#creditcard-id").classList.add("blue");
-    })
+function modalPaymentCreditChange(){
+    document.querySelector("#paypal-container").classList.remove("show");
+    document.querySelector("#credit-container").classList.add("show");
+    document.querySelector("#paypal-id").classList.remove("blue");
+    document.querySelector("#creditcard-id").classList.add("blue");
 }
 
 async function doPayment() {
