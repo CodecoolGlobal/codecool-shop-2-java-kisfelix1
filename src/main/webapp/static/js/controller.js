@@ -1,9 +1,9 @@
-import {getCart, getProductsFiltered, sendProductToCart,sendEmailToBackend} from "./model.js";
+import {getCart, getProductsFiltered, sendProductToCart, sendEmailToBackend} from "./model.js";
 import {addEventListener, showProducts, addEventListenerToAll, showCart} from "./view.js";
 
 async function initialize(){
-    addEventListener("#cart", loadCart)
-    addEventListenerToAll(".cart-btn", addToCart)
+    addEventListener("#cart", loadCart);
+    addEventListenerToAll(".cart-btn", addToCart);
     addEventListener('#categories', loadFilteredProducts);
     addEventListener('#suppliers', loadFilteredProducts);
     modalCloseOpen();
@@ -30,21 +30,17 @@ async function addToCart(e) {
 
 function modalCloseOpen() {
     let modal = document.getElementById("myModal");
-
     let btn = document.getElementById("myBtn");
-
     let span = document.getElementsByClassName("close")[0];
 
     btn.onclick = function() {
         modal.style.display = "block";
     }
-
     span.onclick = function() {
         modal.style.display = "none";
     }
-
     window.onclick = function(event) {
-        if (event.target == modal) {
+        if (event.target === modal) {
             modal.style.display = "none";
         }
     }
