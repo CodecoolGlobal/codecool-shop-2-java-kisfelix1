@@ -8,14 +8,10 @@ import java.util.List;
 public class EmailModel {
     private String productName;
     private List<Product> products;
-    private AddressModel address;
-    private LocalDateTime shippingDate;
 
-    public EmailModel(String productName, List<Product> products, AddressModel address) {
+    public EmailModel(String productName, List<Product> products) {
         this.productName = productName;
         this.products = products;
-        this.address = address;
-        this.shippingDate = LocalDateTime.now().plusDays(7);
     }
 
     public String getProductName() {
@@ -24,14 +20,5 @@ public class EmailModel {
 
     public List<Product> getProducts() {
         return products;
-    }
-
-    public AddressModel getAddress() {
-        return address;
-    }
-
-    public String getShippingDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return shippingDate.format(formatter);
     }
 }
