@@ -1,40 +1,46 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.implementation.CartDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.service.ProductService;
+import com.google.gson.Gson;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/"})
-public class ProductController extends HttpServlet {
 
+@WebServlet(urlPatterns = {"/api/product"})
+public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter out = resp.getWriter();
+        String categoryId = req.getParameter("categoryId");
+        String supplierId = req.getParameter("supplierId");
+
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        CartDao cartDataStore = CartDaoMem.getInstance();
-        ProductService productService = new ProductService(productDataStore,productCategoryDataStore);
         ProductService productService = new ProductService(productDataStore, productCategoryDataStore);
 
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("category", productService.getProductCategory(0));
-        context.setVariable("products", productService.getProductsForCategory(0));
-        context.setVariable("categories", productService.getAllCategories());
-        context.setVariable("suppliers", productService.getAllSuppliers());
-        engine.process("product/index.html", context, resp.getWriter());
+        List<Product> filteredProducts = productService.getFilteredProducts(categoryId, supplierId);
+
+        out.println(new Gson().toJson(filteredProducts));
+        out.flush();
     }
 
 }
