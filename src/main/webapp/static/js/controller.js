@@ -30,19 +30,19 @@ async function addToCart(e) {
 }
 
 function modalCloseOpen() {
-    let modal = document.getElementById("myModal");
-    let btn = document.getElementById("cart-checkout");
+    let paymentModal = document.getElementById("payment-modal");
+    let cartCheckoutButton = document.getElementById("cart-checkout");
     let span = document.getElementsByClassName("close")[0];
 
-    btn.onclick = function() {
-        modal.style.display = "block";
+    cartCheckoutButton.onclick = function() {
+        paymentModal.style.display = "block";
     }
     span.onclick = function() {
-        modal.style.display = "none";
+        paymentModal.style.display = "none";
     }
     window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
+        if (event.target === paymentModal) {
+            paymentModal.style.display = "none";
         }
     }
 }
