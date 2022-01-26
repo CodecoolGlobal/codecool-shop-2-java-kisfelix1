@@ -13,7 +13,7 @@ async function sendResponse(url, data) {
 })}
 
 async function getProductsFiltered(categoryId, supplierId) {
-    return getResponse(`/api/filter?categoryId=${categoryId}&supplierId=${supplierId}`);
+    return getResponse(`/api/product?categoryId=${categoryId}&supplierId=${supplierId}`);
 }
 
 async function sendEmailToBackend(email) {
