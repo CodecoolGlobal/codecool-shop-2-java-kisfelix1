@@ -10,7 +10,6 @@ async function loadFilteredProducts() {
     let categoryId = document.getElementById('categories').value;
     let supplierId = document.getElementById('suppliers').value;
     let productsFiltered = await getProductsFiltered(categoryId, supplierId);
-    console.log(productsFiltered);
     loadProducts(productsFiltered);
 }
 
