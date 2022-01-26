@@ -30,7 +30,7 @@ async function addToCart(e) {
 
 function modalCloseOpen() {
     let modal = document.getElementById("myModal");
-    let btn = document.getElementById("myBtn");
+    let btn = document.getElementById("cart-checkout");
     let span = document.getElementsByClassName("close")[0];
 
     btn.onclick = function() {
