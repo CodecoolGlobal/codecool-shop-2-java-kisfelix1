@@ -6,6 +6,6 @@ async function getResponse(url) {
 }
 
 async function getProductsFiltered(categoryId, supplierId) {
-    return getResponse(`/api/filter?categoryId=${categoryId}&supplierId=${supplierId}`);
+    return getResponse(`/api/product?categoryId=${categoryId}&supplierId=${supplierId}`);
 }
 

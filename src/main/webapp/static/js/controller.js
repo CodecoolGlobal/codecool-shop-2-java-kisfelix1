@@ -6,7 +6,7 @@ function initialize(){
     addEventListener('#suppliers', loadFilteredProducts);
 }
 
-async function loadFilteredProducts(e) {
+async function loadFilteredProducts() {
     let categoryId = document.getElementById('categories').value;
     let supplierId = document.getElementById('suppliers').value;
     let productsFiltered = await getProductsFiltered(categoryId, supplierId);

@@ -13,7 +13,7 @@ function loadProducts(products){
 }
 
 function buildCard(product){
-    return `<div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
+    return `<div class="col col-sm-12 col-md-6 col-lg-4">
                 <div class="card">
                     <img class="" src="/static/img/product_${product.id}.jpg" alt="http://placehold.it/400x250/000/fff"/>
                     <div class="card-header">
@@ -22,7 +22,7 @@ function buildCard(product){
                     </div>
                     <div class="card-body">
                         <div class="card-text">
-                            <p class="lead">${product.defaultPrice}</p>
+                            <p class="lead">${product.defaultPrice} ${product.defaultCurrency}</p>
                         </div>
                         <div class="card-text">
                             <a class="btn btn-success" href="#">Add to cart</a>
