@@ -1,4 +1,4 @@
-export {getProductsFiltered, getCart, sendProductToCart};
+export {getProductsFiltered, getCart, sendProductToCart, sendEmailToBackend};
 
 function sendProductToCart(id){
     const url = `/api/add_cart?itemId=${id}`;
