@@ -48,12 +48,14 @@
             <option value="0">all</option>
             <option th:each="supplier : ${suppliers}" th:value="${supplier.getId()}" th:text="${supplier.getName()}"></option>
         </select>
+    </div>
+</div>
 <div class="container">
     <div id="cart-div">
         <button type="button" id="cart" class="btn btn-primary" data-toggle="modal" data-target="#cartModal">View Cart</button>
     </div>
     <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
+        <strong th:text="${category.getName()}">Category Title</strong>
     </div>
     <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -93,7 +95,6 @@
             </div>
         </div>
     </div>
-    <div id="products" class="row">
 </div>
 
 <div class="container" id="products-container">
@@ -116,7 +117,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <div th:replace="footer.html :: copy"></div>
