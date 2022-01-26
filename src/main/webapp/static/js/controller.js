@@ -5,6 +5,7 @@ function initialize(){
     addEventListener('#categories', loadFilteredProducts);
     addEventListener('#suppliers', loadFilteredProducts);
     modalCloseOpen();
+    modalPaymentChange();
 }
 
 async function loadFilteredProducts(e) {
@@ -15,31 +16,41 @@ async function loadFilteredProducts(e) {
 }
 
 function modalCloseOpen() {
-    // Get the modal
-    var modal = document.getElementById("myModal");
+    let modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
+    let btn = document.getElementById("myBtn");
 
-// Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    let span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal
     btn.onclick = function() {
         modal.style.display = "block";
     }
 
-// When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = "none";
     }
 
-// When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     }
+}
+
+function modalPaymentChange() {
+    document.querySelector("#paypal-id").addEventListener("click", () => {
+        document.querySelector("#paypal-container").classList.add("show");
+        document.querySelector("#credit-container").classList.remove("show");
+        document.querySelector("#paypal-id").classList.add("blue");
+        document.querySelector("#creditcard-id").classList.remove("blue");
+    })
+    document.querySelector("#creditcard-id").addEventListener("click", () => {
+
+        document.querySelector("#paypal-container").classList.remove("show");
+        document.querySelector("#credit-container").classList.add("show");
+        document.querySelector("#paypal-id").classList.remove("blue");
+        document.querySelector("#creditcard-id").classList.add("blue");
+    })
 }
 
 initialize();
