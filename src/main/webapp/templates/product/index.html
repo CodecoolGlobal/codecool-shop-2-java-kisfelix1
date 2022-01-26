@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <title>Codecool Shop</title>
     <script type="module" src="/static/js/controller.js" defer></script>
@@ -14,18 +14,20 @@
 
     <!--Latest compiled and minified Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
 
     <!-- Latest compiled and minified CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- End of Bootstrap components -->
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
 
 <body>
@@ -36,69 +38,31 @@
 
 <div class="row dropdown">
     <div class="column">
-        <strong >Category: </strong>
+        <strong>Category: </strong>
         <select id="categories">
             <option value="0">all</option>
-            <option th:each="category : ${categories}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
+            <option th:each="category : ${categories}" th:value="${category.getId()}"
+                    th:text="${category.getName()}"></option>
         </select>
     </div>
     <div class="column">
-        <strong >Supplier: </strong>
+        <strong>Supplier: </strong>
         <select id="suppliers">
             <option value="0">all</option>
-            <option th:each="supplier : ${suppliers}" th:value="${supplier.getId()}" th:text="${supplier.getName()}"></option>
+            <option th:each="supplier : ${suppliers}" th:value="${supplier.getId()}"
+                    th:text="${supplier.getName()}"></option>
         </select>
     </div>
 </div>
-<div class="container">
-    <div id="cart-div">
-        <button type="button" id="cart" class="btn btn-primary" data-toggle="modal" data-target="#cartModal">View Cart</button>
-    </div>
-    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header border-bottom-0">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                        Your Shopping Cart
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div>
-                    <table class="table table-image">
-                        <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Product</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody class="modal-body" id="cart-body">
 
-                        </tbody>
-                    </table>
-                    <div id="total-amount" class="d-flex justify-content-end">
-                        <h5>Total: <span data-total="0" id="total-price" class="price text-success">89$</span></h5>
-                    </div>
-                </div>
-                <div class="modal-footer border-top-0 d-flex justify-content-between">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button id="cart-checkout" data-toggle="modal" data-target="#cartModal" type="button" class="btn btn-success">Checkout</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div th:replace="product/cart_modal.html :: copy"></div>
 
 <div class="container" id="products-container">
     <div class="row" id="products">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                <img class="" src="http://placehold.it/400x250/000/fff"
+                     th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
                 <div class="card-header">
                     <h4 class="card-title" th:text="${prod.name}">Product name</h4>
                     <p class="card-text" th:text="${prod.description}">Product description... </p>
@@ -116,7 +80,6 @@
     </div>
 </div>
 <!-- The Modal -->
-
 <div th:replace="product/payment_modal.html :: copy"></div>
 
 <div th:replace="footer.html :: copy"></div>
