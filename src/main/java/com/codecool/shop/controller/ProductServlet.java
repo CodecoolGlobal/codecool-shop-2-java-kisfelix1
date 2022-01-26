@@ -26,21 +26,20 @@ import java.util.stream.Collectors;
 @WebServlet(urlPatterns = {"/api/product"})
 public class ProductServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         PrintWriter out = resp.getWriter();
         String categoryId = req.getParameter("categoryId");
         String supplierId = req.getParameter("supplierId");
-        List<Product> products = ProductDaoMem
-                .getInstance()
-                .getAll()
-                .stream()
-                .filter(product -> (product
-                        .getProductCategory().getId()==Integer.parseInt(categoryId)||categoryId.equals("0"))&&
-                        (product.getSupplier().getId()==Integer.parseInt(supplierId)||supplierId.equals("0")))
-                .collect(Collectors.toList());
-        out.println(new Gson().toJson(products));
+
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        ProductService productService = new ProductService(productDataStore, productCategoryDataStore);
+
+        List<Product> filteredProducts = productService.getFilteredProducts(categoryId, supplierId);
+
+        out.println(new Gson().toJson(filteredProducts));
         out.flush();
     }
 
