@@ -1,5 +1,5 @@
-import {getProductsFiltered} from "./model.js";
-import {addEventListener, loadProducts, addEventListenerToAll, addToCart, loadCart} from "./view.js";
+import {getCart, getProductsFiltered, sendProductToCart} from "./model.js";
+import {addEventListener, showProducts, addEventListenerToAll, showCart} from "./view.js";
 
 function initialize(){
     addEventListener("#cart", loadCart)
@@ -12,7 +12,17 @@ async function loadFilteredProducts() {
     let categoryId = document.getElementById('categories').value;
     let supplierId = document.getElementById('suppliers').value;
     let productsFiltered = await getProductsFiltered(categoryId, supplierId);
-    loadProducts(productsFiltered);
+    showProducts(productsFiltered);
+}
+
+async function loadCart() {
+    let cart = await getCart();
+    showCart(cart);
+}
+
+async function addToCart(e) {
+    const id = e.target.dataset.btnId;
+    await sendProductToCart(id);
 }
 
 initialize();
