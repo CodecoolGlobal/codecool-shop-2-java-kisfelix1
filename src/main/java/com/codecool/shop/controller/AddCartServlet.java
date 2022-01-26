@@ -3,7 +3,6 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.implementation.CartDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.model.CartProduct;
 import com.codecool.shop.model.Product;
 import com.google.gson.Gson;
 
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 
 @WebServlet(name = "addCart", urlPatterns = {"/api/add_cart"})
@@ -33,7 +31,7 @@ public class AddCartServlet extends HttpServlet {
         } else {
             cart.add(item, 1);
         }
-        String json = new Gson().toJson(item.getName()+ "added to cart");
+        String json = new Gson().toJson(item.getName() + "added to cart");
 
         PrintWriter out = resp.getWriter();
         out.println(json);
