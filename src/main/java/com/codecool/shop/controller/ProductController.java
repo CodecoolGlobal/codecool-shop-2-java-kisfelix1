@@ -26,12 +26,12 @@ public class ProductController extends HttpServlet {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         CartDao cartDataStore = CartDaoMem.getInstance();
         ProductService productService = new ProductService(productDataStore,productCategoryDataStore);
-        ProductService productService = new ProductService(productDataStore, productCategoryDataStore);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("category", productService.getProductCategory(0));
-        context.setVariable("products", productService.getProductsForCategory(0));
+
+        context.setVariable("category", productService.getProductCategory(1));
+        context.setVariable("products", productService.getProductsForCategory(1));
         context.setVariable("categories", productService.getAllCategories());
         context.setVariable("suppliers", productService.getAllSuppliers());
         engine.process("product/index.html", context, resp.getWriter());
