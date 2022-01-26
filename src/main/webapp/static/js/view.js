@@ -1,7 +1,4 @@
-import {getResponse} from "./model.js";
-
-export {addEventListener,addEventListenerToAll, loadCart, addToCart};
-export {addEventListener, loadProducts};
+export {addEventListener,addEventListenerToAll, loadCart, addToCart, loadProducts};
 
 function addEventListener(selector, func){
     document.querySelector(selector).addEventListener('click', func);
@@ -35,12 +32,6 @@ function buildCard(product){
             </div>`;
 }
 
-
-
-function loadContent(selector, content){
-    document.querySelector(selector).innerHTML = content;
-}
-
 function addEventListenerToAll(selector, func) {
     const elements = document.querySelectorAll(selector)
     for (let i = 0; i < elements.length; i++) {
@@ -71,6 +62,6 @@ async function loadCart() {
 async function addToCart(e) {
     const id = e.target.dataset.btnId
     const url = `/api/add_cart?itemId=${id}`
-    console.log(getResponse(url))
+    //console.log(getResponse(url))
 }
 

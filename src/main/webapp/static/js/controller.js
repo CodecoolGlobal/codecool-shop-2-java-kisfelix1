@@ -1,5 +1,5 @@
 import {getProductsFiltered} from "./model.js";
-import {addEventListener, loadProducts} from "./view.js";
+import {addEventListener, loadProducts, addEventListenerToAll, addToCart, loadCart} from "./view.js";
 
 function initialize(){
     addEventListener("#cart", loadCart)
