@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <title>Codecool Shop</title>
     <script type="module" src="/static/js/controller.js" defer></script>
@@ -14,18 +14,20 @@
 
     <!--Latest compiled and minified Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
 
     <!-- Latest compiled and minified CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- End of Bootstrap components -->
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
 
 <body>
@@ -36,26 +38,31 @@
 
 <div class="row dropdown">
     <div class="column">
-        <strong >Category: </strong>
+        <strong>Category: </strong>
         <select id="categories">
             <option value="0">all</option>
-            <option th:each="category : ${categories}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
+            <option th:each="category : ${categories}" th:value="${category.getId()}"
+                    th:text="${category.getName()}"></option>
         </select>
     </div>
     <div class="column">
-        <strong >Supplier: </strong>
+        <strong>Supplier: </strong>
         <select id="suppliers">
             <option value="0">all</option>
-            <option th:each="supplier : ${suppliers}" th:value="${supplier.getId()}" th:text="${supplier.getName()}"></option>
+            <option th:each="supplier : ${suppliers}" th:value="${supplier.getId()}"
+                    th:text="${supplier.getName()}"></option>
         </select>
     </div>
 </div>
+
+<div th:replace="product/cart_modal.html :: copy"></div>
 
 <div class="container" id="products-container">
     <div class="row" id="products">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                <img class="" src="http://placehold.it/400x250/000/fff"
+                     th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
                 <div class="card-header">
                     <h4 class="card-title" th:text="${prod.name}">Product name</h4>
                     <p class="card-text" th:text="${prod.description}">Product description... </p>
@@ -65,105 +72,15 @@
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                        <button th:data-btn-id="${prod.id}" class="btn btn-success cart-btn">Add to cart</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-
-<button id="myBtn">Open Modal</button>
-
 <!-- The Modal -->
-<div id="myModal" class="payment-modal">
-
-    <!-- Modal content -->
-    <div class="payment-modal-content">
-        <div class="payment-modal-header">
-            <span class="close">&times;</span>
-            <h2>Payment</h2>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12 mt-4">
-                    <div class="card p-3">
-                        <p class="mb-0 fw-bold h4">Payment Methods</p>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="card p-3">
-                        <div class="card-body border p-0">
-                            <p> <a id="paypal-id" class="btn btn-primary w-100 h-100 d-flex align-items-center justify-content-between" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseExample"> <span class="fw-bold">PayPal</span> <span class="fab fa-cc-paypal"> </span> </a> </p>
-                            <div class="collapse p-3 pt-0" id="paypal-container">
-                                <div class="row">
-                                    <div class="col-lg-5 mb-lg-0 mb-3">
-                                        <p class="h4 mb-0">Summary</p>
-                                        <p class="mb-0"><span class="fw-bold">Product:</span><span class="c-green">: Name of product</span></p>
-                                        <p class="mb-0"><span class="fw-bold">Price:</span><span class="c-green">:$452.90</span></p>
-                                    </div>
-                                    <div class="col-lg-7">
-                                        <form action="" id="paypal-form" class="form">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="form__div"> <input id="paypal-email" type="email" class="form-control" placeholder=" " required> <label for="" class="form__label">Email Address</label> </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="form__div"> <input type="password" class="form-control" placeholder=" " required> <label for="" class="form__label">Password</label> </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <input type="submit" class="btn btn-primary payment w-100" value="Make Payment">
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body border p-0">
-                            <p> <a id="creditcard-id" class="btn btn-primary p-2 w-100 h-100 d-flex align-items-center justify-content-between blue" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseExample"> <span class="fw-bold">Credit Card</span> <span class=""> <span class="fab fa-cc-amex"></span> <span class="fab fa-cc-mastercard"></span> <span class="fab fa-cc-discover"></span> </span> </a> </p>
-                            <div class="collapse show p-3 pt-0" id="credit-container">
-                                <div class="row">
-                                    <div class="col-lg-5 mb-lg-0 mb-3">
-                                        <p class="h4 mb-0">Summary</p>
-                                        <p class="mb-0"><span class="fw-bold">Product:</span><span class="c-green">: Name of product</span> </p>
-                                        <p class="mb-0"> <span class="fw-bold">Price:</span> <span class="c-green">:$452.90</span> </p>
-                                    </div>
-                                    <div class="col-lg-7">
-                                        <form action="" id="credit-form" class="form">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="form__div"> <input id="credit-email" type="email" class="form-control" placeholder=" " required> <label for="" class="form__label">Email Address</label> </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form__div"> <input type="text" class="form-control" placeholder=" " required> <label for="" class="form__label">Card Number</label> </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="form__div"> <input type="text" class="form-control" placeholder=" " required> <label for="" class="form__label">MM / yy</label> </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="form__div"> <input type="password" class="form-control" placeholder=" " required> <label for="" class="form__label">cvv code</label> </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form__div"> <input type="text" class="form-control" placeholder=" " required> <label for="" class="form__label">name on the card</label> </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <input type="submit" class="btn btn-primary payment w-100" value="Make Payment">
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
+<div th:replace="product/payment_modal.html :: copy"></div>
 
 <div th:replace="footer.html :: copy"></div>
 

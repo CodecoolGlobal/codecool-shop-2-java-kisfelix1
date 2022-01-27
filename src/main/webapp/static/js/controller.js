@@ -1,11 +1,14 @@
-import {getProductsFiltered, sendEmailToBackend} from "./model.js";
-import {addEventListener, loadProducts} from "./view.js";
+import {getCart, getProductsFiltered, sendProductToCart, sendEmailToBackend} from "./model.js";
+import {addEventListener, showProducts, addEventListenerToAll, showCart} from "./view.js";
 
 async function initialize(){
+    addEventListener("#cart", loadCart);
+    addEventListenerToAll(".cart-btn", addToCart);
     addEventListener('#categories', loadFilteredProducts);
     addEventListener('#suppliers', loadFilteredProducts);
+    addEventListener('#paypal-id', modalPaymentPaypalChange);
+    addEventListener('#creditcard-id',modalPaymentCreditChange);
     modalCloseOpen();
-    modalPaymentChange();
     await doPayment();
 }
 
@@ -13,45 +16,48 @@ async function loadFilteredProducts() {
     let categoryId = document.getElementById('categories').value;
     let supplierId = document.getElementById('suppliers').value;
     let productsFiltered = await getProductsFiltered(categoryId, supplierId);
-    loadProducts(productsFiltered);
+    showProducts(productsFiltered);
+}
+
+async function loadCart() {
+    let cart = await getCart();
+    showCart(cart);
+}
+
+async function addToCart(e) {
+    const id = e.target.dataset.btnId;
+    await sendProductToCart(id);
 }
 
 function modalCloseOpen() {
-    let modal = document.getElementById("myModal");
-
-    let btn = document.getElementById("myBtn");
-
+    let paymentModal = document.getElementById("payment-modal");
+    let cartCheckoutButton = document.getElementById("cart-checkout");
     let span = document.getElementsByClassName("close")[0];
 
-    btn.onclick = function() {
-        modal.style.display = "block";
+    cartCheckoutButton.onclick = function() {
+        paymentModal.style.display = "block";
     }
-
     span.onclick = function() {
-        modal.style.display = "none";
+        paymentModal.style.display = "none";
     }
-
     window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+        if (event.target === paymentModal) {
+            paymentModal.style.display = "none";
         }
     }
 }
+function modalPaymentPaypalChange() {
+    document.querySelector("#paypal-container").classList.add("show");
+    document.querySelector("#credit-container").classList.remove("show");
+    document.querySelector("#paypal-id").classList.add("blue");
+    document.querySelector("#creditcard-id").classList.remove("blue");
+}
 
-function modalPaymentChange() {
-    document.querySelector("#paypal-id").addEventListener("click", () => {
-        document.querySelector("#paypal-container").classList.add("show");
-        document.querySelector("#credit-container").classList.remove("show");
-        document.querySelector("#paypal-id").classList.add("blue");
-        document.querySelector("#creditcard-id").classList.remove("blue");
-    })
-    document.querySelector("#creditcard-id").addEventListener("click", () => {
-
-        document.querySelector("#paypal-container").classList.remove("show");
-        document.querySelector("#credit-container").classList.add("show");
-        document.querySelector("#paypal-id").classList.remove("blue");
-        document.querySelector("#creditcard-id").classList.add("blue");
-    })
+function modalPaymentCreditChange(){
+    document.querySelector("#paypal-container").classList.remove("show");
+    document.querySelector("#credit-container").classList.add("show");
+    document.querySelector("#paypal-id").classList.remove("blue");
+    document.querySelector("#creditcard-id").classList.add("blue");
 }
 
 async function doPayment() {
