@@ -30,10 +30,10 @@
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
 
-<body>
+<body style="background: url('/static/img/background.jpg')">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Codecool shop</a>
+<nav class="navbar navbar-expand-lg navbar-danger bg-danger fixed-top">
+    <a class="navbar-brand" style="color: white">NFT Webshop</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -67,8 +67,8 @@
     </div>
 </nav>
 
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+<div class="jumbotron text-center" style="background: transparent">
+    <h1 style="color: white">NFT Webshop</h1>
 </div>
 
 <div th:replace="product/cart_modal.html :: copy"></div>
