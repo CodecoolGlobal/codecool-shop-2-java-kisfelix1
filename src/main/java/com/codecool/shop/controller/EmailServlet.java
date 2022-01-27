@@ -1,5 +1,7 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.email.EmailUtil;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +22,10 @@ public class EmailServlet extends HttpServlet {
             buffer.append(System.lineSeparator());
         }
         String data = buffer.toString();
-        System.out.println(data);
+        try {
+            EmailUtil.sendEmail(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
