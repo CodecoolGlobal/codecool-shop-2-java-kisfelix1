@@ -1,4 +1,5 @@
-export {addEventListener, addEventListenerToAll, showProducts, showCart};
+export {addEventListener, addEventListenerToAll, showProducts, showCart, editCartProductAmount, editTotalCartPrice};
+import {editCart} from "./controller.js";
 
 function addEventListener(selector, func) {
     document.querySelector(selector).addEventListener('click', func);
@@ -37,12 +38,42 @@ function buildCard(product) {
 
 function showCart(cart) {
     let cartContent = cart.map(prod => {
-        return buildCart(prod);
+        return buildCartElement(prod);
     }).join('');
     loadContent("#cart-body", cartContent);
+    setCartTotalPrice(cart)
+    setupCartProductAmountEdit()
 }
 
-function buildCart(product) {
+function setCartTotalPrice(cart){
+    const totalPrice = cart.map(e => {
+        return Number(e.defaultPrice) * Number(e.amount)
+    }).reduce((a, b) => a + b, 0)
+    document.querySelector("#total-cart-price").textContent = String(Math.round(totalPrice)) + "$"
+    document.querySelector("#total-cart-price").dataset.total = String(totalPrice)
+}
+
+function setupCartProductAmountEdit(){
+    document.querySelectorAll(".edit").forEach(e => e.addEventListener("click", editCart))
+}
+
+
+function editCartProductAmount(value, quantity, id, defaultCurrency, defaultPrice){
+    document.querySelector(`#amountId${id}`).textContent = String(Math.round(quantity + value))
+    document.querySelector(`#product-total${id}`).textContent = `${Math.round(defaultPrice * (quantity + value))} ${defaultCurrency}`
+}
+
+function editTotalCartPrice(value, total, defaultPrice, defaultCurrency){
+    if (value === 1){
+        document.querySelector("#total-cart-price").textContent = Math.round((total + defaultPrice)) + "$"
+        document.querySelector("#total-cart-price").dataset.total = String(total + defaultPrice)
+    } else if (value === -1){
+        document.querySelector("#total-cart-price").textContent = Math.round(total - defaultPrice) + "$"
+        document.querySelector("#total-cart-price").dataset.total = String(total - defaultPrice)
+    }
+}
+
+function buildCartElement(product) {
     return `<tr>
             <td class="w-25">
                 <img src="/static/img/product_${product.id}.jpg"  alt="${product.name} + '.jpg'" class="img-fluid img-thumbnail" >
@@ -50,10 +81,10 @@ function buildCart(product) {
             <td>${product.name}</td>
             <td>${product.defaultPrice} ${product.defaultCurrency}</td>
             <td class="qty"><p id=${"amountId" + product.id} type="text" class="amount form-control" >${product.amount}</p></td>
-            <td id=${"totalId" + product.id} data-default-price=${product.defaultPrice} data-default-currency=${product.defaultCurrency}>${product.defaultPrice * product.amount} ${product.defaultCurrency}</td>
+            <td id=${"product-total" + product.id} data-default-price=${product.defaultPrice} data-default-currency=${product.defaultCurrency}>${product.defaultPrice * product.amount} ${product.defaultCurrency}</td>
             <td data-product-id=${product.id}>
-                <h2 data-amount="1" class="edit">+</h2>
-                <h2 data-amount="-1" class="edit"> -</h2>
+                <h2 data-value="1" class="edit">+</h2>
+                <h2 data-value="-1" class="edit"> -</h2>
             </td>
         </tr>`
 }
