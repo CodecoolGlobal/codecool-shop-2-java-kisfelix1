@@ -25,6 +25,6 @@ async function getCart() {
     return await getResponse("/api/review_cart");
 }
 
-async function sendEmailToBackend(email) {
-    await sendResponse("/api/sendEmail", email)
+async function sendEmailToBackend(emailAddress) {
+    await sendResponse("/api/sendEmail", emailAddress)
 }

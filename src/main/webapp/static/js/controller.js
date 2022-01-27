@@ -61,16 +61,16 @@ function modalPaymentCreditChange(){
 }
 
 async function doPayment() {
-    const paypalForm = document.querySelector("#paypal-form")
-    const creditForm = document.querySelector("#credit-form")
+    const paypalForm = document.querySelector("#paypal-form");
+    const creditForm = document.querySelector("#credit-form");
 
     paypalForm.addEventListener("submit", () => {
-        const email = document.querySelector("#paypal-email").value
+        const email = document.querySelector("#paypal-email").value;
         sendEmailToBackend(email);
     })
 
     creditForm.addEventListener("submit", () => {
-        const email = document.querySelector("#credit-email").value
+        const email = document.querySelector("#credit-email").value;
         sendEmailToBackend(email);
     })
 }
