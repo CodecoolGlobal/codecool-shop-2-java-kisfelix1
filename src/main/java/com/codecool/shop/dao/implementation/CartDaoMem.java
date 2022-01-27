@@ -5,6 +5,7 @@ import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.model.CartProduct;
 import com.codecool.shop.model.Product;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +49,14 @@ public class CartDaoMem implements CartDao {
     @Override
     public void remove(int id) {
         data.remove(find(id));
+    }
+
+    @Override
+    public BigDecimal getTotalCartPrice(){
+        return data.stream()
+                .map(e -> e.getDefaultPrice()
+                        .multiply(BigDecimal.valueOf(e.getAmount())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     @Override

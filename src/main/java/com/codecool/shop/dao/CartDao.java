@@ -3,6 +3,7 @@ package com.codecool.shop.dao;
 import com.codecool.shop.model.CartProduct;
 import com.codecool.shop.model.Product;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface CartDao {
@@ -11,6 +12,7 @@ public interface CartDao {
     void edit(int value, int id);
     Product find(int id);
     void remove(int id);
+    BigDecimal getTotalCartPrice();
 
     List<CartProduct> getAll();
 }

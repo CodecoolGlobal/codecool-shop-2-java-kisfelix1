@@ -1,5 +1,12 @@
-import {getCart, getProductsFiltered, sendProductToCart, sendEmailToBackend} from "./model.js";
-import {addEventListener, showProducts, addEventListenerToAll, showCart} from "./view.js";
+import {getCart, getProductsFiltered, sendProductToCart, sendEmailToBackend, editCartContent} from "./model.js";
+import {
+    addEventListener,
+    showProducts,
+    addEventListenerToAll,
+    showCart,
+    editCartProductAmount,
+    editTotalCartPrice
+} from "./view.js";
 
 async function initialize(){
     addEventListener("#cart", loadCart);
@@ -73,6 +80,26 @@ async function doPayment() {
         const email = document.querySelector("#credit-email").value
         sendEmailToBackend(email);
     })
+}
+
+export async function editCart(e){
+    const value = Number(e.currentTarget.dataset.value)
+    const id = e.currentTarget.parentElement.dataset.productId
+    const quantity = Number(document.querySelector(`#amountId${id}`).textContent)
+    await editCartContent("/api/cart/edit", {"id" : id, "amount": value})
+    if (isProductRemoved(quantity, value)){
+        await loadCart()
+    } else{
+        const defaultPrice = Number(document.querySelector(`#product-total${id}`).dataset.defaultPrice)
+        const defaultCurrency = document.querySelector(`#product-total${id}`).dataset.defaultCurrency
+        const total = Number(document.querySelector("#total-cart-price").dataset.total)
+        editCartProductAmount(value, quantity, id, defaultCurrency, defaultPrice)
+        editTotalCartPrice(value, total, defaultPrice, defaultCurrency)
+    }
+}
+
+function isProductRemoved(quantity, value){
+    return quantity + value < 1
 }
 
 await initialize();
