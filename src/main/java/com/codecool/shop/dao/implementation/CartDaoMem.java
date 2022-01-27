@@ -51,6 +51,14 @@ public class CartDaoMem implements CartDao {
     }
 
     @Override
+    public BigDecimal getTotalCartPrice(){
+        return data.stream()
+                .map(e -> e.getDefaultPrice()
+                        .multiply(BigDecimal.valueOf(e.getAmount())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    @Override
     public List<CartProduct> getAll() {
         return data;
     }
