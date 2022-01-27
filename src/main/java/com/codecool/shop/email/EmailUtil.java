@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class EmailUtil {
-    public static void sendEmail (String recipient) throws Exception {
+    public static void sendEmail (String recipient, String htmlContent) throws Exception {
         System.out.println("Sending Email...");
         Properties properties = new Properties();
 
@@ -32,35 +32,17 @@ public class EmailUtil {
             }
         });
 
-        Message message = prepareMessage(session, myEmail, recipient);
+        Message message = prepareMessage(session, myEmail, recipient, htmlContent);
         Transport.send(message);
         System.out.println("Email sent.");
     }
 
-    private static Message prepareMessage(Session session, String myEmail, String recipient) throws Exception {
+    private static Message prepareMessage(Session session, String myEmail, String recipient, String htmlContent) throws Exception {
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(myEmail));
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
         message.setSubject("Order Confirmation");
-        // TODO: This needs to work with Thymeleaf
-        String htmlContent = readHtml();
         message.setContent(htmlContent, "text/html");
         return message;
-    }
-
-    private static String readHtml(){
-        // Temporary
-        StringBuilder contentBuilder = new StringBuilder();
-        try {
-            BufferedReader in = new BufferedReader(new FileReader("src/main/webapp/templates/order_confirmation.html"));
-            String str;
-            while ((str = in.readLine()) != null) {
-                contentBuilder.append(str);
-            }
-            in.close();
-        } catch (IOException e) {
-        }
-        String content = contentBuilder.toString();
-        return content;
     }
 }

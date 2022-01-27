@@ -11,6 +11,5 @@ public interface CartDao {
     void edit(int value, int id);
     Product find(int id);
     void remove(int id);
-
     List<CartProduct> getAll();
 }
