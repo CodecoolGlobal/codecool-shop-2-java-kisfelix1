@@ -48,5 +48,13 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("M9 Bayonet | Crimson Web", new BigDecimal("258"), "USD", "CS:GO digital skin. A knife with red color and a black web design on the middle.", knife, valve));
         productDataStore.add(new Product("Classic Knife", new BigDecimal("214"), "USD", "CS:GO digital skin. Feel the old times with this peace of art!", knife, valve));
         productDataStore.add(new Product("Kitchen Knife", new BigDecimal("64"), "USD", "A quality knife. Perfect for cutting meat and vegetables!", knife, staub));
+        productDataStore.add(new Product("Golden monkey art", new BigDecimal("2999"), "USD", "A digital art from a golden monkey", nft, opensea));
+        productDataStore.add(new Product("Intelligent gorilla art", new BigDecimal("699"), "USD", "A digital art from a very intelligent gorilla", nft, opensea));
+        productDataStore.add(new Product("Frankenstein's apple art", new BigDecimal("755"), "USD", "A digital art from an apple cosplaying Frankenstein's monster", nft, opensea));
+        productDataStore.add(new Product("Surprised strawberry art", new BigDecimal("465"), "USD", "A digital art from a surprised strawberry", nft, opensea));
+        productDataStore.add(new Product("Cool bomb art", new BigDecimal("643"), "USD", "A digital art from a bomb", nft, opensea));
+        productDataStore.add(new Product("Pirate monkey art", new BigDecimal("265"), "USD", "A digital art from a monkey with an eye patch", nft, opensea));
+        productDataStore.add(new Product("Surprised bomb art", new BigDecimal("245"), "USD", "A digital art from a surprised bomb", nft, opensea));
+        productDataStore.add(new Product("Toxic doge art", new BigDecimal("435"), "USD", "A digital art from a toxic dog", nft, opensea));
     }
 }
