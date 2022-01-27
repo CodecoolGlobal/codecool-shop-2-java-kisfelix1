@@ -29,7 +29,7 @@ function buildCard(product) {
                             <p class="lead">${product.defaultPrice} ${product.defaultCurrency}</p>
                         </div>
                         <div class="card-text">
-                            <a class="btn btn-success">Add to cart</a>
+                        <button data-btn-id="${product.id}" class="btn btn-success cart-btn">Add to cart</button>
                         </div>
                     </div>
                 </div>

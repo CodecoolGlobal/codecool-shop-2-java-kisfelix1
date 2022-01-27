@@ -24,6 +24,7 @@ async function loadFilteredProducts() {
     let supplierId = document.getElementById('suppliers').value;
     let productsFiltered = await getProductsFiltered(categoryId, supplierId);
     showProducts(productsFiltered);
+    addEventListenerToAll(".cart-btn", addToCart);
 }
 
 async function loadCart() {
