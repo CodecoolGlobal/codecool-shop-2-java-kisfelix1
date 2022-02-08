@@ -2,14 +2,18 @@ package com.codecool.shop.selenium;
 
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertEquals;
@@ -57,5 +61,22 @@ public class BaseTests {
 
     private Select findDropDownElement(){
         return new Select(driver.findElement(By.id("categories")));
+    }
+
+
+    @Test
+    public void testAddItemToCartAndClickViewButton() throws InterruptedException {
+        setUp();
+        driver.manage().window().maximize();
+        String option = "NFT";
+        findDropDownElement().selectByVisibleText(option);
+        By toxiDogoButton = By.xpath("//button[@data-btn-id='15']");
+        driver.findElement(toxiDogoButton).click();
+        driver.findElement(By.id("cart")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//button[text()='Close']")).click();
+        String text = driver.findElement(By.id("product-name")).getText();
+        assertEquals(text, "Toxic doge art", "Results text incorrect");
+        driver.quit();
     }
 }
