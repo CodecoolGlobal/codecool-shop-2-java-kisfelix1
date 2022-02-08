@@ -25,18 +25,36 @@ public class Initializer implements ServletContextListener {
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
         //setting up a new supplier
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        supplierDataStore.add(amazon);
-        Supplier lenovo = new Supplier("Lenovo", "Computers");
-        supplierDataStore.add(lenovo);
+        Supplier valve = new Supplier("Valve", "Valve is a video game developer and publisher company");
+        supplierDataStore.add(valve);
+        Supplier opensea = new Supplier("OpenSea", "A peer-to-peer marketplace for NFTs");
+        supplierDataStore.add(opensea);
+        Supplier staub = new Supplier("Staub", "A quality knife producer.");
+        supplierDataStore.add(staub);
 
         //setting up a new product category
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        productCategoryDataStore.add(tablet);
+        ProductCategory knife = new ProductCategory("Knife", "Cuisinart", "A product for cutting things up or to deal some damage.");
+        productCategoryDataStore.add(knife);
+        ProductCategory gun = new ProductCategory("Gun", "Guns", "A weapon of destruction and instrument of death. A good time killer too");
+        productCategoryDataStore.add(gun);
+        ProductCategory nft = new ProductCategory("NFT", "Digital art", "An overpriced digital picture for bragging reasons");
+        productCategoryDataStore.add(nft);
 
         //setting up products and printing it
-        productDataStore.add(new Product("Amazon Fire", new BigDecimal("49.9"), "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
-        productDataStore.add(new Product("Lenovo IdeaPad Miix 700", new BigDecimal("479"), "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
-        productDataStore.add(new Product("Amazon Fire HD 8", new BigDecimal("89"), "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
+        productDataStore.add(new Product("M4A4 | Howl", new BigDecimal("2000"), "USD", "CS:GO digital skin. Get your hand on a rare peace of art now!", gun, valve));
+        productDataStore.add(new Product("M4A4 | Poseidon", new BigDecimal("549.9"), "USD", "CS:GO digital skin. A mostly rare skin with rare condition. Feel the power of the sea!", gun, valve));
+        productDataStore.add(new Product("AWP | Dragon lore", new BigDecimal("1556"), "USD", "CS:GO digital skin. A nice skin with nordic motives and a nice dragon art.", gun, valve));
+        productDataStore.add(new Product("M4A1 | Imminent Danger", new BigDecimal("239"), "USD", "CS:GO digital skin. Warn others as you take the lead on the battlefield.", gun, valve));
+        productDataStore.add(new Product("M9 Bayonet | Crimson Web", new BigDecimal("258"), "USD", "CS:GO digital skin. A knife with red color and a black web design on the middle.", knife, valve));
+        productDataStore.add(new Product("Classic Knife", new BigDecimal("214"), "USD", "CS:GO digital skin. Feel the old times with this peace of art!", knife, valve));
+        productDataStore.add(new Product("Kitchen Knife", new BigDecimal("64"), "USD", "A quality knife. Perfect for cutting meat and vegetables!", knife, staub));
+        productDataStore.add(new Product("Golden monkey art", new BigDecimal("2999"), "USD", "A digital art from a golden monkey", nft, opensea));
+        productDataStore.add(new Product("Intelligent gorilla art", new BigDecimal("699"), "USD", "A digital art from a very intelligent gorilla", nft, opensea));
+        productDataStore.add(new Product("Frankenstein's apple art", new BigDecimal("755"), "USD", "A digital art from an apple cosplaying Frankenstein's monster", nft, opensea));
+        productDataStore.add(new Product("Surprised strawberry art", new BigDecimal("465"), "USD", "A digital art from a surprised strawberry", nft, opensea));
+        productDataStore.add(new Product("Cool bomb art", new BigDecimal("643"), "USD", "A digital art from a bomb", nft, opensea));
+        productDataStore.add(new Product("Pirate monkey art", new BigDecimal("265"), "USD", "A digital art from a monkey with an eye patch", nft, opensea));
+        productDataStore.add(new Product("Surprised bomb art", new BigDecimal("245"), "USD", "A digital art from a surprised bomb", nft, opensea));
+        productDataStore.add(new Product("Toxic doge art", new BigDecimal("435"), "USD", "A digital art from a toxic dog", nft, opensea));
     }
 }
