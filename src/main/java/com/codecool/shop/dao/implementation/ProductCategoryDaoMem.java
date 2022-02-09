@@ -4,6 +4,7 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -66,6 +67,20 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
 
     @Override
     public List<ProductCategory> getAll() {
-        return data;
+        List<ProductCategory> productCategories = new ArrayList<>();
+        List<Integer> ids = new ArrayList<>();
+        try(Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT id FROM product_category";
+            ResultSet rs = connection.createStatement().executeQuery(sql);
+            while (rs.next()) {
+                ids.add(rs.getInt(1));
+            }
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        for (Integer id : ids) {
+            productCategories.add(find(id));
+        }
+        return productCategories;
     }
 }
