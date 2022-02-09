@@ -65,6 +65,20 @@ public class SupplierDaoMem implements SupplierDao {
 
     @Override
     public List<Supplier> getAll() {
-        return data;
+        List<Supplier> suppliers = new ArrayList<>();
+        List<Integer> ids = new ArrayList<>();
+        try(Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT id FROM supplier";
+            ResultSet rs = connection.createStatement().executeQuery(sql);
+            while (rs.next()) {
+                ids.add(rs.getInt(1));
+            }
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        for (Integer id : ids) {
+            suppliers.add(find(id));
+        }
+        return suppliers;
     }
 }
