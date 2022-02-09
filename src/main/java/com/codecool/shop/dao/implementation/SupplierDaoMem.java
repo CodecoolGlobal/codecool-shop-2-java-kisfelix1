@@ -3,17 +3,24 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierDaoMem implements SupplierDao {
-
+    DataSource dataSource;
     private List<Supplier> data = new ArrayList<>();
     private static SupplierDaoMem instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
      */
     private SupplierDaoMem() {
+        try {
+            dataSource = DatabaseManager.connect();
+        }catch(SQLException e){
+            System.out.println("Couldn't connect to the database!");
+        }
     }
 
     public static SupplierDaoMem getInstance() {
