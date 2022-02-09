@@ -19,7 +19,7 @@ function showProducts(products) {
 function buildCard(product) {
     return `<div class="col col-sm-12 col-md-6 col-lg-4">
                 <div class="card">
-                    <img class="" src="/static/img/product_${product.id}.jpg" alt="http://placehold.it/400x250/000/fff"/>
+                    <img class="" src="${product.imagePath}" alt="http://placehold.it/400x250/000/fff"/>
                     <div class="card-header">
                         <h4 class="card-title">${product.name}</h4>
                         <p class="card-text">${product.description}</p>
@@ -76,7 +76,7 @@ function editTotalCartPrice(value, total, defaultPrice, defaultCurrency){
 function buildCartElement(product) {
     return `<tr>
             <td class="w-25">
-                <img src="/static/img/product_${product.id}.jpg"  alt="${product.name} + '.jpg'" class="img-fluid img-thumbnail" >
+                <img src="${product.imagePath}"  alt="${product.name} + '.jpg'" class="img-fluid img-thumbnail" >
             </td>
             <td id="product-name">${product.name}</td>
             <td>${product.defaultPrice} ${product.defaultCurrency}</td>
