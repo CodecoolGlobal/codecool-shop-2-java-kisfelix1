@@ -78,7 +78,21 @@ public class ProductDaoMem implements ProductDao {
 
     @Override
     public List<Product> getAll() {
-        return data;
+        List<Product> products = new ArrayList<>();
+        List<Integer> ids = new ArrayList<>();
+        try(Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT id FROM product";
+            ResultSet rs = connection.createStatement().executeQuery(sql);
+            while (rs.next()) {
+                ids.add(rs.getInt(1));
+            }
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        for (Integer id : ids) {
+            products.add(find(id));
+        }
+        return products;
     }
 
     @Override
