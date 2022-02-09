@@ -6,18 +6,25 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProductDaoMem implements ProductDao {
-
+    private DataSource dataSource;
     private List<Product> data = new ArrayList<>();
     private static ProductDaoMem instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
      */
     private ProductDaoMem() {
+        try {
+            dataSource = Connection.connect();
+        }catch(SQLException e){
+            System.out.println("Couldn't connect to the database!");
+        }
     }
 
     public static ProductDaoMem getInstance() {
