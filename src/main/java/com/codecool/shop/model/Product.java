@@ -11,8 +11,11 @@ public class Product extends BaseModel {
     private Supplier supplier;
     private String imagePath;
 
+    public String getImagePath() {
+        return imagePath;
+    }
 
-    public Product(String name, BigDecimal defaultPrice, String currencyString, String description, String imagePath,ProductCategory productCategory, Supplier supplier) {
+    public Product(String name, BigDecimal defaultPrice, String currencyString, String description, String imagePath, ProductCategory productCategory, Supplier supplier) {
         super(name, description);
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
