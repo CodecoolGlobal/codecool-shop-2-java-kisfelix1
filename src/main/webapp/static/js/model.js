@@ -44,3 +44,7 @@ async function getCart() {
 async function sendEmailToBackend(emailAddress) {
     await sendResponse("/api/sendEmail", emailAddress)
 }
+
+async function checkCorrectLogin() {
+    return PostResponse()
+}
