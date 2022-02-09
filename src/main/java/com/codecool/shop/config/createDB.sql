@@ -50,20 +50,20 @@ INSERT INTO supplier VALUES (1, 'Valve', 'Valve is a video game developer and pu
 INSERT INTO supplier VALUES (2, 'OpenSea', 'A peer-to-peer marketplace for NFTs') ;
 INSERT INTO supplier VALUES (3, 'Staub', 'A quality knife producer.');
 
-INSERT INTO product VALUES (1,'M4A4 | Howl',2000,'USD','CS:GO digital skin. Get your hand on a rare peace of art now!','product_1.jpg',1,2);
-INSERT INTO product VALUES (2,'M4A4 | Poseidon',1556,'USD','CS:GO digital skin. A mostly rare skin with rare condition. Feel the power of the sea!','product_2.jpg',1,2);
-INSERT INTO product VALUES (3,'AWP | Dragon lore',2000,'USD','CS:GO digital skin. A nice skin with nordic motives and a nice dragon art.','product_3.jpg',1,2);
-INSERT INTO product VALUES (4,'M4A1 | Imminent Danger',239,'USD','CS:GO digital skin. Warn others as you take the lead on the battlefield.','product_4.jpg',1,2);
-INSERT INTO product VALUES (5,'M9 Bayonet | Crimson Web',258,'USD','CS:GO digital skin. A knife with red color and a black web design on the middle.','product_1.jpg',1,1);
-INSERT INTO product VALUES (6,'Classic Knife',214,'USD','CS:GO digital skin. Feel the old times with this peace of art!','product_1.jpg',1,1);
-INSERT INTO product VALUES (7,'Kitchen Knife',64,'USD','A quality knife. Perfect for cutting meat and vegetables!','product_1.jpg',3,1);
-INSERT INTO product VALUES (8,'Golden monkey art',2999,'USD','A digital art from a golden monkey','product_1.jpg',2,3);
-INSERT INTO product VALUES (9,'Intelligent gorilla art',699,'USD','A digital art from a very intelligent gorilla','product_1.jpg',2,3);
-INSERT INTO product VALUES (10,'Frankenstein`s apple art',755,'USD','A digital art from an apple cosplaying Frankenstein`s monster','product_1.jpg',2,3);
-INSERT INTO product VALUES (11,'Surprised strawberry art',465,'USD','A digital art from a surprised strawberry','product_1.jpg',2,3);
-INSERT INTO product VALUES (12,'Cool bomb art',643,'USD','A digital art from a bomb','product_1.jpg',2,3);
-INSERT INTO product VALUES (13,'Pirate monkey art',265,'USD','A digital art from a monkey with an eye patch','product_1.jpg',2,3);
-INSERT INTO product VALUES (14,'Surprised bomb art',245,'USD','A digital art from a surprised bomb','product_1.jpg',2,3);
-INSERT INTO product VALUES (15,'Toxic doge art',135,'USD','A digital art from a toxic dog','product_1.jpg',2,3);
+INSERT INTO product VALUES (1,'M4A4 | Howl',2000,'USD','CS:GO digital skin. Get your hand on a rare peace of art now!','/static/img/product_1.jpg',1,2);
+INSERT INTO product VALUES (2,'M4A4 | Poseidon',1556,'USD','CS:GO digital skin. A mostly rare skin with rare condition. Feel the power of the sea!','/static/img/product_2.jpg',1,2);
+INSERT INTO product VALUES (3,'AWP | Dragon lore',2000,'USD','CS:GO digital skin. A nice skin with nordic motives and a nice dragon art.','/static/img/product_3.jpg',1,2);
+INSERT INTO product VALUES (4,'M4A1 | Imminent Danger',239,'USD','CS:GO digital skin. Warn others as you take the lead on the battlefield.','/static/img/product_4.jpg',1,2);
+INSERT INTO product VALUES (5,'M9 Bayonet | Crimson Web',258,'USD','CS:GO digital skin. A knife with red color and a black web design on the middle.','/static/img/product_5.jpg',1,1);
+INSERT INTO product VALUES (6,'Classic Knife',214,'USD','CS:GO digital skin. Feel the old times with this peace of art!','/static/img/product_6.jpg',1,1);
+INSERT INTO product VALUES (7,'Kitchen Knife',64,'USD','A quality knife. Perfect for cutting meat and vegetables!','/static/img/product_7.jpg',3,1);
+INSERT INTO product VALUES (8,'Golden monkey art',2999,'USD','A digital art from a golden monkey','/static/img/product_8.jpg',2,3);
+INSERT INTO product VALUES (9,'Intelligent gorilla art',699,'USD','A digital art from a very intelligent gorilla','/static/img/product_9.jpg',2,3);
+INSERT INTO product VALUES (10,'Frankenstein`s apple art',755,'USD','A digital art from an apple cosplaying Frankenstein`s monster','/static/img/product_10.jpg',2,3);
+INSERT INTO product VALUES (11,'Surprised strawberry art',465,'USD','A digital art from a surprised strawberry','/static/img/product_11.jpg',2,3);
+INSERT INTO product VALUES (12,'Cool bomb art',643,'USD','A digital art from a bomb','/static/img/product_12.jpg',2,3);
+INSERT INTO product VALUES (13,'Pirate monkey art',265,'USD','A digital art from a monkey with an eye patch','/static/img/product_13.jpg',2,3);
+INSERT INTO product VALUES (14,'Surprised bomb art',245,'USD','A digital art from a surprised bomb','/static/img/product_14.jpg',2,3);
+INSERT INTO product VALUES (15,'Toxic doge art',135,'USD','A digital art from a toxic dog','/static/img/product_15.jpg',2,3);
 
 INSERT INTO eshop_user VALUES(1,'Józsi','kek', 'csipkej98@gmail.com');
