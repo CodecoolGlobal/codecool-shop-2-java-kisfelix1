@@ -78,7 +78,7 @@ function buildCartElement(product) {
             <td class="w-25">
                 <img src="/static/img/product_${product.id}.jpg"  alt="${product.name} + '.jpg'" class="img-fluid img-thumbnail" >
             </td>
-            <td>${product.name}</td>
+            <td id="product-name">${product.name}</td>
             <td>${product.defaultPrice} ${product.defaultCurrency}</td>
             <td class="qty"><p id=${"amountId" + product.id} type="text" class="amount form-control" >${product.amount}</p></td>
             <td id=${"product-total" + product.id} data-default-price=${product.defaultPrice} data-default-currency=${product.defaultCurrency}>${product.defaultPrice * product.amount} ${product.defaultCurrency}</td>
