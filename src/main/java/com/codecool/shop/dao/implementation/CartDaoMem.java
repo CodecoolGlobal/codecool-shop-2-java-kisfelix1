@@ -5,18 +5,25 @@ import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.model.CartProduct;
 import com.codecool.shop.model.Product;
 
+import javax.sql.DataSource;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartDaoMem implements CartDao {
-
+    private DataSource dataSource;
     private List<CartProduct> data = new ArrayList<>();
     private static CartDaoMem instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
      */
     private CartDaoMem() {
+        try {
+            dataSource = DatabaseManager.connect();
+        }catch (SQLException e){
+            System.out.println("Couldn't connect to database!");
+        }
     }
 
     public static CartDaoMem getInstance() {
