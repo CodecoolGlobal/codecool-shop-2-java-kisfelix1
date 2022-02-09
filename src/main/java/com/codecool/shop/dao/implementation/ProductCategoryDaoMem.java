@@ -2,9 +2,13 @@ package com.codecool.shop.dao.implementation;
 
 
 import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +43,20 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
 
     @Override
     public ProductCategory find(int id) {
-        return data.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
+        try(Connection connection = dataSource.getConnection()){
+            String sql = "SELECT id, category_name, department FROM product_category WHERE id = ?";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (!rs.next()) { // first row was not found == no data was returned by the query
+                return null;
+            }
+            ProductCategory productCategory = new ProductCategory(rs.getString(2), rs.getString(3));
+            productCategory.setId(rs.getInt(1));
+            return productCategory;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
