@@ -13,7 +13,6 @@ public class Cart extends BaseModel {
     public Cart(String name, String description) {
         super(name);
         this.items = new ArrayList<>();
-
     }
 
     public List<Product> getItems() {
