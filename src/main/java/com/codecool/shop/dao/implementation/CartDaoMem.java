@@ -20,7 +20,7 @@ public class CartDaoMem implements CartDao {
      */
     private CartDaoMem() {
         try {
-            dataSource = Connection.connect();
+            dataSource = DatabaseManager.connect();
         }catch (SQLException e){
             System.out.println("Couldn't connect to database!");
         }
