@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 
@@ -22,6 +24,7 @@ public class BaseTests {
     private By categories = By.id("categories");
     private By supplier = By.id("suppliers");
 
+    @BeforeClass
     protected void setUp(){
         System.setProperty("webdriver.chrome.driver",
                 "/home/emis/Projects/codecool/oop/week6/codecool-shop-2-java-kisfelix1/src/main/resources/chromedriver");
@@ -32,7 +35,6 @@ public class BaseTests {
 
     @Test
     public void testGetTitle(){
-        setUp();
         String title = "Codecool Shop";
         assertEquals(driver.getTitle(), title, "Title is not matching");
         System.out.println(driver.getTitle() + " : driver.getTitle() result.");
@@ -43,7 +45,6 @@ public class BaseTests {
 
     @Test
     public void testSelectOption(){
-        setUp();
         driver.manage().window().maximize();
         String option = "NFT";
         findDropDownElement(categories).selectByVisibleText(option);
@@ -65,7 +66,6 @@ public class BaseTests {
 
     @Test
     public void testAddItemToCartAndClickViewButton() throws InterruptedException {
-        setUp();
         driver.manage().window().maximize();
         String option = "NFT";
         findDropDownElement(categories).selectByVisibleText(option);
@@ -82,7 +82,6 @@ public class BaseTests {
 
     @Test
     public void testAddItemToCartAndClickToCheckoutAndFillAllInputField() throws InterruptedException {
-        setUp();
         driver.manage().window().maximize();
         String option = "OpenSea";
         findDropDownElement(supplier).selectByVisibleText(option);
@@ -100,7 +99,8 @@ public class BaseTests {
         By paymentButton = By.id("payment-button");
 
 
-        driver.findElement(emailInput).sendKeys("emistest10@gmail.com");
+        driver.findElement(emailInput).sendKeys("alma@test.hu");
+        //driver.findElement(emailInput).sendKeys("emistest10@gmail.com");
         driver.findElement(cardNumber).sendKeys("123456789012");
         driver.findElement(MMYY).sendKeys("729");
         driver.findElement(cvvCode).sendKeys("123");
