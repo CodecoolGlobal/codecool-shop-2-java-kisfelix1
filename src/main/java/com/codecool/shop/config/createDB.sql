@@ -18,7 +18,7 @@ CREATE TABLE product
     price        DECIMAL            NOT NULL,
     currency     VARCHAR(200)       NOT NULL,
     description  VARCHAR(200),
-    image_url        VARCHAR(200),
+    image_path        VARCHAR(200),
     supplier_id  INTEGER            NOT NULL,
     category_id  INTEGER            NOT NULL
 );
