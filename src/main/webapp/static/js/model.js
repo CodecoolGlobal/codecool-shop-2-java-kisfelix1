@@ -1,4 +1,4 @@
-export {getProductsFiltered, getCart, sendProductToCart, sendEmailToBackend, editCartContent, checkCorrectLogin};
+export {getProductsFiltered, getCart, sendProductToCart, sendEmailToBackend, editCartContent, checkCorrectLogin, registerUserInDatabase};
 
 function sendProductToCart(id){
     const url = `/api/add_cart?itemId=${id}`;
@@ -47,4 +47,8 @@ async function sendEmailToBackend(emailAddress) {
 
 async function checkCorrectLogin(url, data) {
     return await PostResponse(url, data);
+}
+
+async function registerUserInDatabase(url, data) {
+    await PostResponse(url, data)
 }

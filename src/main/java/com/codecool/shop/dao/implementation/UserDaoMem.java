@@ -34,7 +34,16 @@ public class UserDaoMem implements UserDao {
 
     @Override
     public void add(User user) {
-
+        try(Connection connection = dataSource.getConnection()) {
+            String sql = "INSERT INTO eshop_user (full_name, email, password) VALUES(?, ?, ?)";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, user.getName());
+            st.setString(2, user.getEmail());
+            st.setString(3, user.getPassword());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override

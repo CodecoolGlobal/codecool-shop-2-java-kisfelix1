@@ -4,7 +4,7 @@ import {
     sendProductToCart,
     sendEmailToBackend,
     editCartContent,
-    checkCorrectLogin
+    checkCorrectLogin, registerUserInDatabase
 } from "./model.js";
 import {
     addEventListener,
@@ -23,6 +23,7 @@ async function initialize(){
     addEventListener('#paypal-id', modalPaymentPaypalChange);
     addEventListener('#creditcard-id',modalPaymentCreditChange);
     addEventListener('#login-btn', loginUserCheck)
+    addEventListener('#register-btn', registerUser)
     addEventListener("#logout", logoutUser)
     modalCloseOpen();
     await doPayment();
@@ -126,6 +127,22 @@ async function loginUserCheck() {
         document.getElementById("userNamePlace").innerText = databaseLogin.name
         document.getElementById("close-modal").click()
         checkUserInSession()
+    }
+}
+
+async function registerUser() {
+    const error = document.getElementById("register-error")
+    const name = document.querySelector('#register-name').value
+    const email = document.querySelector("#register-email").value
+    const password = document.querySelector("#register-password").value
+    if (email.includes('@') && email.includes('.')) {
+        if (name.includes(' ')) {
+            registerUserInDatabase("/api/user/register", {"name" : name, "email" : email, "password" : password})
+        } else {
+            error.innerText = "You have to write your full name!"
+        }
+    } else {
+        error.innerText = "Wrong email format. Please try again!"
     }
 }
 
