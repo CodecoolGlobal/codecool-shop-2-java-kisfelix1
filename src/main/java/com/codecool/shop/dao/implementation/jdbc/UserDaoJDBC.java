@@ -21,11 +21,8 @@ public class UserDaoJDBC implements UserDao {
     }
 
     public static UserDaoJDBC getInitialInstance(DataSource dataSource) {
-        if (instance == null){
-            instance = new UserDaoJDBC(dataSource);
-        } else {
-            throw new Error();  // Database was already created using current class
-        }
+        instance = new UserDaoJDBC(dataSource);
+
         return instance;
     }
 

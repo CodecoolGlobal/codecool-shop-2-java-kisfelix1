@@ -1,9 +1,6 @@
 package com.codecool.shop.config;
 
-import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.jdbc.*;
 import com.codecool.shop.dao.implementation.mem.CartDaoMem;
 import com.codecool.shop.dao.implementation.mem.ProductCategoryDaoMem;
@@ -11,6 +8,7 @@ import com.codecool.shop.dao.implementation.mem.ProductDaoMem;
 import com.codecool.shop.dao.implementation.mem.SupplierDaoMem;
 import com.codecool.shop.service.CartService;
 import com.codecool.shop.service.ProductService;
+import com.codecool.shop.service.UserService;
 
 import javax.sql.DataSource;
 import java.io.File;
@@ -72,6 +70,9 @@ public class DbConfig {
             supplierDataStore = SupplierDaoJDBC.getInitialInstance(dataSource);
             productDataStore = ProductDaoJDBC.getInitialInstance(dataSource, productCategoryDataStore, supplierDataStore);
             cartDataStore = CartDaoJDBC.getInitialInstance(dataSource);
+
+            UserDaoJDBC userDao = UserDaoJDBC.getInitialInstance(dataSource);
+            UserService.createInitialInstance(userDao);
 
         } else {
             productDataStore = ProductDaoMem.getInstance();
