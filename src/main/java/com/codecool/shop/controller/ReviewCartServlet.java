@@ -1,6 +1,5 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.implementation.mem.CartDaoMem;
 import com.codecool.shop.model.CartProduct;
 import com.codecool.shop.service.CartService;
 import com.google.gson.Gson;
@@ -12,9 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @WebServlet(name = "reviewCart", urlPatterns = {"/api/review_cart"})
