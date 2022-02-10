@@ -23,6 +23,7 @@ async function initialize(){
     addEventListener('#paypal-id', modalPaymentPaypalChange);
     addEventListener('#creditcard-id',modalPaymentCreditChange);
     addEventListener('#login-btn', loginUserCheck)
+    addEventListener("#logout", logoutUser)
     modalCloseOpen();
     await doPayment();
 }
@@ -118,21 +119,34 @@ async function loginUserCheck() {
     if (databaseLogin == null) {
         document.getElementById("login-error").innerText = "Email or Password was incorrect! Please try again!"
     } else {
-        console.log(databaseLogin.id)
+        document.getElementById("login-email").value = ""
+        document.getElementById("login-password").value = ""
         localStorage.setItem("user_id", databaseLogin.id)
         localStorage.setItem("user_name", databaseLogin.name)
+        document.getElementById("userNamePlace").innerText = databaseLogin.name
+        document.getElementById("close-modal").click()
         checkUserInSession()
     }
+}
 
+function logoutUser() {
+    localStorage.removeItem("user_id")
+    localStorage.removeItem("user_name")
+    checkUserInSession()
 }
 
 function checkUserInSession() {
     if (localStorage.getItem("user_id") != null) {
         document.getElementById("login").style.display = 'none'
         document.getElementById("register").style.display = 'none'
+        document.getElementById("logout").style.display = 'block'
+        document.getElementById("userName").style.display = 'block'
     } else {
         document.getElementById("login").style.display = 'block'
         document.getElementById("register").style.display = 'block'
+        document.getElementById("logout").style.display = 'none'
+        document.getElementById("userName").style.display = 'none'
+        document.getElementById("userNamePlace").innerText = ""
     }
 }
 

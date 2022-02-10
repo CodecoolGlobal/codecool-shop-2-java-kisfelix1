@@ -66,4 +66,4 @@ INSERT INTO product VALUES (13,'Pirate monkey art',265,'USD','A digital art from
 INSERT INTO product VALUES (14,'Surprised bomb art',245,'USD','A digital art from a surprised bomb','product_1.jpg',2,3);
 INSERT INTO product VALUES (15,'Toxic doge art',135,'USD','A digital art from a toxic dog','product_1.jpg',2,3);
 
-INSERT INTO eshop_user VALUES(1,'Józsi','kek', 'csipkej98@gmail.com');
+INSERT INTO eshop_user VALUES(1,'Jozsi','kek', 'csipkej98@gmail.com');
