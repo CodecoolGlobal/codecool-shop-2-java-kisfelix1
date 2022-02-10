@@ -1,7 +1,5 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.UserDao;
-import com.codecool.shop.dao.implementation.UserDaoMem;
 import com.codecool.shop.model.User;
 import com.codecool.shop.service.UserService;
 import com.google.gson.Gson;
