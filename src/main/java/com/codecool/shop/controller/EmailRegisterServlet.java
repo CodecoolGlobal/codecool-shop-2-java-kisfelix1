@@ -2,8 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.email.EmailUtil;
-import com.codecool.shop.model.CartProduct;
-import com.codecool.shop.service.CartService;
+import com.codecool.shop.service.UserService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -14,10 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(urlPatterns = {"/api/sendEmail"})
-public class EmailServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/api/sendRegisterEmail"})
+public class EmailRegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         StringBuilder buffer = new StringBuilder();
@@ -27,33 +25,28 @@ public class EmailServlet extends HttpServlet {
             buffer.append(line);
             buffer.append(System.lineSeparator());
         }
+        System.out.println(buffer);
         String data = buffer.toString();
+        System.out.println(data);
+        System.out.println("krisz2098@gmail.com");
         try {
-            String htmlTemplate = templateEngine(req, resp);
+            String htmlTemplate = templateEngine(req, resp, data);
             EmailUtil.sendEmail(data, htmlTemplate);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private String templateEngine(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        CartService cartService = CartService.getInstance();
-        List<CartProduct> cart = cartService.getAll();
-        double totalPrice = calculatePrice(cart);
+    private String templateEngine(HttpServletRequest req, HttpServletResponse resp, String email) throws IOException {
+
+        String correctEmail = email.replace("\"", "").replace("\n", "");
+        UserService userService = UserService.getInstance();
+        String name = userService.find(correctEmail);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        context.setVariable("products", cart);
-        context.setVariable("totalPrice", totalPrice);
-        return engine.process("order_confirmation.html", context);
-    }
-
-    private double calculatePrice(List<CartProduct> cartDataStore) {
-        float totalPrice = 0;
-        for (CartProduct product : cartDataStore) {
-            totalPrice += product.getDefaultPrice().floatValue() * product.getAmount();
-        }
-        return Math.round(totalPrice*100.0)/100.0;
+        context.setVariable("username", name);
+        return engine.process("register_confirmation.html", context);
     }
 }

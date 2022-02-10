@@ -1,11 +1,7 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.config.Initializer;
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.jdbc.DatabaseManager;
 import com.codecool.shop.dao.implementation.jdbc.CartDaoJDBC;
 import com.codecool.shop.dao.implementation.jdbc.ProductCategoryDaoJDBC;
@@ -17,6 +13,7 @@ import com.codecool.shop.dao.implementation.mem.ProductDaoMem;
 import com.codecool.shop.dao.implementation.mem.SupplierDaoMem;
 import com.codecool.shop.service.CartService;
 import com.codecool.shop.service.ProductService;
+import com.codecool.shop.service.UserService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -34,6 +31,7 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
         String dbInput = getDatabaseType();
         try {
             createDbConnection(dbInput);

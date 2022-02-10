@@ -1,6 +1,5 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.service.CartService;
 import com.codecool.shop.service.ProductService;
