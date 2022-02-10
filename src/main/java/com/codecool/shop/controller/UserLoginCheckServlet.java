@@ -27,7 +27,7 @@ public class UserLoginCheckServlet extends HttpServlet {
             UserDao userDao = UserDaoMem.getInstance();
 
             Gson gson = new Gson();
-            String json = gson.toJson(userDao.find(email, password).getName() + " has tried a login!");
+            String json = gson.toJson(userDao.find(email, password));
 
             userDao.find(email, password);
 

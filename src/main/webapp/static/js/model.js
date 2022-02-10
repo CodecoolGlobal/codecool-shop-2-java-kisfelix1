@@ -19,7 +19,7 @@ async function PostResponse(url, data) {
         body: JSON.stringify(data),
     }
     const response = await fetch(url, setupObj);
-    console.log(response.json())
+    return response.json();
 }
 
 async function sendResponse(url, data) {
@@ -46,5 +46,5 @@ async function sendEmailToBackend(emailAddress) {
 }
 
 async function checkCorrectLogin(url, data) {
-    return PostResponse(url, data)
+    return await PostResponse(url, data);
 }

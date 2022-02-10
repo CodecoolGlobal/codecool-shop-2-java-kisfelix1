@@ -114,7 +114,26 @@ function isProductRemoved(quantity, value){
 async function loginUserCheck() {
     const email = document.querySelector("#login-email").value
     const password = document.querySelector("#login-password").value
-    // await checkCorrectLogin("/api/user/login")
+    let databaseLogin = await checkCorrectLogin("/api/user/login", { "email" : email, "password" : password})
+    if (databaseLogin == null) {
+        document.getElementById("login-error").innerText = "Email or Password was incorrect! Please try again!"
+    } else {
+        console.log(databaseLogin.id)
+        localStorage.setItem("user_id", databaseLogin.id)
+        localStorage.setItem("user_name", databaseLogin.name)
+        checkUserInSession()
+    }
+
+}
+
+function checkUserInSession() {
+    if (localStorage.getItem("user_id") != null) {
+        document.getElementById("login").style.display = 'none'
+        document.getElementById("register").style.display = 'none'
+    } else {
+        document.getElementById("login").style.display = 'block'
+        document.getElementById("register").style.display = 'block'
+    }
 }
 
 await initialize();
