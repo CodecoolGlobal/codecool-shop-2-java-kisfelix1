@@ -14,7 +14,6 @@ import java.util.List;
 
 public class SupplierDaoMem implements SupplierDao {
     DataSource dataSource;
-    private List<Supplier> data = new ArrayList<>();
     private static SupplierDaoMem instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
@@ -35,12 +34,6 @@ public class SupplierDaoMem implements SupplierDao {
     }
 
     @Override
-    public void add(Supplier supplier) {
-        supplier.setId(data.size() + 1);
-        data.add(supplier);
-    }
-
-    @Override
     public Supplier find(int id) {
         try(Connection connection = dataSource.getConnection()){
             String sql = "SELECT id, supplier_name, description FROM supplier WHERE id = ?";
@@ -56,11 +49,6 @@ public class SupplierDaoMem implements SupplierDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public void remove(int id) {
-        data.remove(find(id));
     }
 
     @Override
