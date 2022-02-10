@@ -1,27 +1,32 @@
 package com.codecool.shop.dao.implementation.jdbc;
 
+import com.codecool.shop.config.DbConfig;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
 public class DatabaseManager {
 
-    public DataSource getDataSource() throws SQLException {
+    public DataSource getDataSource() throws SQLException, FileNotFoundException {
         try {
             DataSource dataSource = connect();
             return dataSource;
         }catch (SQLException e){
             System.out.println("Couldn't connect to database!");
             throw e;
+        } catch (FileNotFoundException ex){
+            System.out.println("Couldn't find db_config file!");
+            throw ex;
         }
     }
 
-    public static DataSource connect() throws SQLException {
+    public static DataSource connect() throws SQLException, FileNotFoundException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        String dbName = System.getenv("DB_NAME");
-        String user = System.getenv("DB_USERNAME");
-        String password = System.getenv("DB_PASSWORD");
+        String dbName = DbConfig.getInstance().getDbName();
+        String user = DbConfig.getInstance().getDbUserName();
+        String password = DbConfig.getInstance().getDbbPassword();
 
         dataSource.setDatabaseName(dbName);
         dataSource.setUser(user);

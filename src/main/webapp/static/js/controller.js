@@ -4,6 +4,7 @@ import {
     sendProductToCart,
     sendEmailToBackend,
     editCartContent,
+    switchDbBtn,
     checkCorrectLogin, registerUserInDatabase, sendRegisterEmailToBackend
 } from "./model.js";
 import {
@@ -26,6 +27,7 @@ async function initialize(){
     addEventListener('#register-btn', registerUser)
     addEventListener("#logout", logoutUser)
     modalCloseOpen();
+    addEventListener("#switchDbBtn", switchDbBtn)
     await doPayment();
 }
 

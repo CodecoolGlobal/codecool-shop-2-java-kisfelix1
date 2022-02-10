@@ -17,7 +17,7 @@ public class CartService {
     private CartDao cartDao;
     private static CartService instance = null;
 
-    public CartService(CartDao cartDao) {
+    private CartService(CartDao cartDao) {
         this.cartDao = cartDao;
     }
 

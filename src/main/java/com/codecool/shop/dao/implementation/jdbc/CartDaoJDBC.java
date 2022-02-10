@@ -22,11 +22,7 @@ public class CartDaoJDBC implements CartDao {
     }
 
     public static CartDaoJDBC getInitialInstance(DataSource dataSource) {
-        if (instance == null){
-            instance = new CartDaoJDBC(dataSource);
-        } else {
-            throw new Error();  // Database was already created using current class
-        }
+        instance = new CartDaoJDBC(dataSource);
         return instance;
     }
 
@@ -50,12 +46,7 @@ public class CartDaoJDBC implements CartDao {
         return data.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
     }
 
-    @Override
-    public void remove(int id) {
-        data.remove(find(id));
-    }
 
-    @Override
     public BigDecimal getTotalCartPrice(){
         return data.stream()
                 .map(e -> e.getDefaultPrice()

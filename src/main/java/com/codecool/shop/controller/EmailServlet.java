@@ -1,7 +1,6 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.email.EmailUtil;
 import com.codecool.shop.model.CartProduct;
 import com.codecool.shop.service.CartService;

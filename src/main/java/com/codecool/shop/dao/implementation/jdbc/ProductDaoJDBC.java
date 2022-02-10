@@ -33,11 +33,7 @@ public class ProductDaoJDBC implements ProductDao {
     }
 
     public static ProductDaoJDBC getInitialInstance(DataSource dataSource, ProductCategoryDao productCategoryDao, SupplierDao supplierDao) {
-        if (instance == null){
-            instance = new ProductDaoJDBC(dataSource, productCategoryDao, supplierDao);
-        } else {
-            throw new Error();  // Database was already created using current class
-        }
+        instance = new ProductDaoJDBC(dataSource, productCategoryDao, supplierDao);
         return instance;
     }
 

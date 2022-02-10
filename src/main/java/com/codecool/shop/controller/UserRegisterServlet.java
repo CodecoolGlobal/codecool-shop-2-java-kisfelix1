@@ -1,8 +1,7 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.UserDao;
-import com.codecool.shop.dao.implementation.UserDaoMem;
 import com.codecool.shop.model.User;
+import com.codecool.shop.service.UserService;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -23,12 +22,12 @@ public class UserRegisterServlet extends HttpServlet {
             String email = userTemplate.getEmail();
             String password = userTemplate.getPassword();
 
-            UserDao userDao = UserDaoMem.getInstance();
+            UserService userService = UserService.getInstance();
 
             Gson gson = new Gson();
             String json = gson.toJson(userName + " has been registered in the Database");
 
-            userDao.add(new User(userName, email, password));
+            userService.add(new User(userName, email, password));
 
             PrintWriter out = response.getWriter();
             out.println(json);

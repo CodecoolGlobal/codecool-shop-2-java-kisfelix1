@@ -1,10 +1,7 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.dao.UserDao;
-import com.codecool.shop.dao.implementation.CartDaoMem;
-import com.codecool.shop.dao.implementation.UserDaoMem;
 import com.codecool.shop.model.User;
+import com.codecool.shop.service.UserService;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -24,12 +21,12 @@ public class UserLoginCheckServlet extends HttpServlet {
             String email = userTemplate.getEmail();
             String password = userTemplate.getPassword();
 
-            UserDao userDao = UserDaoMem.getInstance();
+            UserService userService = UserService.getInstance();
 
             Gson gson = new Gson();
-            String json = gson.toJson(userDao.find(email, password));
+            String json = gson.toJson(userService.find(email, password));
 
-            userDao.find(email, password);
+            userService.find(email, password);
 
             PrintWriter out = response.getWriter();
             out.println(json);

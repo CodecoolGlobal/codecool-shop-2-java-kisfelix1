@@ -1,7 +1,6 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dao.implementation.jdbc;
 
 import com.codecool.shop.dao.UserDao;
-import com.codecool.shop.model.Product;
 import com.codecool.shop.model.User;
 
 import javax.sql.DataSource;
@@ -10,25 +9,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDaoMem implements UserDao {
+public class UserDaoJDBC implements UserDao {
 
     private DataSource dataSource;
-    private static UserDaoMem instance = null;
+    private static UserDaoJDBC instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
      */
-    private UserDaoMem() {
-        try {
-            dataSource = DatabaseManager.connect();
-        }catch (SQLException e){
-            System.out.println("Couldn't connect to database!");
-        }
+    private UserDaoJDBC(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-    public static UserDaoMem getInstance() {
-        if (instance == null) {
-            instance = new UserDaoMem();
-        }
+    public static UserDaoJDBC getInitialInstance(DataSource dataSource) {
+        instance = new UserDaoJDBC(dataSource);
+
         return instance;
     }
 
