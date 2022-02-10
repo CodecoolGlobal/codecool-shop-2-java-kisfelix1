@@ -38,8 +38,8 @@ public class Initializer implements ServletContextListener {
         productCategoryDataStore.add(nft);
 
         //setting up products and printing it
-        productDataStore.add(new Product("M4A4 | Howl", new BigDecimal("2000"), "USD", "CS:GO digital skin. Get your hand on a rare peace of art now!", "/static/img/product_5.jpg" , gun, valve));
-        productDataStore.add(new Product("M4A4 | Poseidon", new BigDecimal("549.9"), "USD", "CS:GO digital skin. A mostly rare skin with rare condition. Feel the power of the sea!", "/static/img/product_6.jpg", gun, valve));
+        productDataStore.add(new Product("M4A4 | Howl", new BigDecimal("2000"), "USD", "CS:GO digital skin. Get your hand on a rare peace of art now!", "/static/img/product_5.jpg" , knife, valve));
+        productDataStore.add(new Product("M4A4 | Poseidon", new BigDecimal("549.9"), "USD", "CS:GO digital skin. A mostly rare skin with rare condition. Feel the power of the sea!", "/static/img/product_6.jpg", knife, valve));
 //        productDataStore.add(new Product("AWP | Dragon lore", new BigDecimal("1556"), "USD", "CS:GO digital skin. A nice skin with nordic motives and a nice dragon art.", gun, valve));
 //        productDataStore.add(new Product("M4A1 | Imminent Danger", new BigDecimal("239"), "USD", "CS:GO digital skin. Warn others as you take the lead on the battlefield.", gun, valve));
 //        productDataStore.add(new Product("M9 Bayonet | Crimson Web", new BigDecimal("258"), "USD", "CS:GO digital skin. A knife with red color and a black web design on the middle.", knife, valve));
