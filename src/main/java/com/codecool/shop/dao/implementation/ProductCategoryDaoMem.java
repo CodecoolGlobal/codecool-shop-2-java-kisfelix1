@@ -16,7 +16,6 @@ import java.util.List;
 
 public class ProductCategoryDaoMem implements ProductCategoryDao {
     private DataSource dataSource;
-    private List<ProductCategory> data = new ArrayList<>();
     private static ProductCategoryDaoMem instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
@@ -37,12 +36,6 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
     }
 
     @Override
-    public void add(ProductCategory category) {
-        category.setId(data.size() + 1);
-        data.add(category);
-    }
-
-    @Override
     public ProductCategory find(int id) {
         try(Connection connection = dataSource.getConnection()){
             String sql = "SELECT id, category_name, department FROM product_category WHERE id = ?";
@@ -58,11 +51,6 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public void remove(int id) {
-        data.remove(find(id));
     }
 
     @Override
