@@ -49,9 +49,8 @@ public class DbConfig {
         if (instance == null){
             return true;
         }
-        String dbType = instance.dbType;
-        getDbConfigData();
-        return instance.dbType.equals(dbType);
+        String newType = getDbConfigData().toString().split(" ")[0];
+        return !instance.dbType.equals(newType);
 
     }
 
