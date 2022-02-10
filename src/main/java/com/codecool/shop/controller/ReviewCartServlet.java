@@ -1,7 +1,8 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.implementation.CartDaoMem;
+import com.codecool.shop.dao.implementation.mem.CartDaoMem;
 import com.codecool.shop.model.CartProduct;
+import com.codecool.shop.service.CartService;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -23,9 +24,10 @@ public class ReviewCartServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         PrintWriter out = resp.getWriter();
-        List<CartProduct> items = CartDaoMem
-                .getInstance()
-                .getAll();
+
+        CartService cartService = CartService.getInstance();
+        List<CartProduct> items = cartService.getAll();
+        
         out.println(new Gson().toJson(items));
         out.flush();
     }

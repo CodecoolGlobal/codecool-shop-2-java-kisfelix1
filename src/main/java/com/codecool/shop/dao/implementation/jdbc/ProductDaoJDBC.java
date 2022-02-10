@@ -1,12 +1,14 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dao.implementation.jdbc;
 
 
+import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
-import javax.sql.*;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,30 +17,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProductDaoMem implements ProductDao {
-    private DataSource dataSource;
-    private static ProductDaoMem instance = null;
-    private static ProductCategoryDaoMem productCategoryDaoMem;
-    private static SupplierDaoMem supplierDaoMem;
+public class ProductDaoJDBC implements ProductDao {
+    private static ProductDaoJDBC instance = null;
+
+    private final DataSource dataSource;
+    private final ProductCategoryDao productCategoryDao;
+    private final SupplierDao supplierDao;
 
     /* A private Constructor prevents any other class from instantiating.
      */
-    private ProductDaoMem() {
-        try {
-            dataSource = DatabaseManager.connect();
-            productCategoryDaoMem = ProductCategoryDaoMem.getInstance();
-            supplierDaoMem = SupplierDaoMem.getInstance();
-        }catch(SQLException e){
-            System.out.println("Couldn't connect to the database!");
-        }
+    private ProductDaoJDBC(DataSource dataSource, ProductCategoryDao productCategoryDao, SupplierDao supplierDao) {
+        this.dataSource = dataSource;
+        this.productCategoryDao = productCategoryDao;
+        this.supplierDao = supplierDao;
     }
 
-    public static ProductDaoMem getInstance() {
-        if (instance == null) {
-            instance = new ProductDaoMem();
+    public static ProductDaoJDBC getInitialInstance(DataSource dataSource, ProductCategoryDao productCategoryDao, SupplierDao supplierDao) {
+        if (instance == null){
+            instance = new ProductDaoJDBC(dataSource, productCategoryDao, supplierDao);
+        } else {
+            throw new Error();  // Database was already created using current class
         }
         return instance;
     }
+
+
 
     @Override
     public Product find(int id) {
@@ -55,14 +58,15 @@ public class ProductDaoMem implements ProductDao {
                     rs.getString(4),
                     rs.getString(5),
                     rs.getString(6),
-                    productCategoryDaoMem.find(rs.getInt(8)),
-                    supplierDaoMem.find(rs.getInt(7)));
+                    productCategoryDao.find(rs.getInt(8)),
+                    supplierDao.find(rs.getInt(7)));
             product.setId(rs.getInt(1));
             return product;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public List<Product> getAll() {

@@ -1,8 +1,8 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.dao.implementation.CartDaoMem;
 import com.codecool.shop.model.CartProduct;
+import com.codecool.shop.service.CartService;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -22,12 +22,12 @@ public class EditCartServlet extends HttpServlet {
         int productId = cartProductTemplate.getId();
         int amount = cartProductTemplate.getAmount();
 
-        CartDao cartDao = CartDaoMem.getInstance();
+        CartService cartService = CartService.getInstance();
 
         Gson gson = new Gson();
-        String json = gson.toJson(cartDao.find(productId).getName() + " edited by " + amount);
+        String json = gson.toJson(cartService.find(productId).getName() + " edited by " + amount);
 
-        cartDao.edit(amount, productId);
+        cartService.edit(amount, productId);
 
         PrintWriter out = response.getWriter();
         out.println(json);

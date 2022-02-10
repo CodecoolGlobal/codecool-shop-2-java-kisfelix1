@@ -3,24 +3,42 @@ package com.codecool.shop.service;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.mem.ProductDaoMem;
+import com.codecool.shop.dao.implementation.mem.SupplierDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
-import jdk.jfr.Category;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProductService{
-    private ProductDao productDao;
-    private ProductCategoryDao productCategoryDao;
+    private final ProductDao productDao;
+    private final ProductCategoryDao productCategoryDao;
+    private final SupplierDao supplierDao;
+    private static ProductService instance = null;
 
-    public ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao) {
+    public ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao, SupplierDao supplierDao) {
         this.productDao = productDao;
         this.productCategoryDao = productCategoryDao;
+        this.supplierDao = supplierDao;
     }
+
+    public static ProductService getInstance() {
+        if (instance == null) {
+            throw new Error();      //  database is not yet created, call getInitialInstance()
+        }
+        return instance;
+    }
+
+    public static void createInitialInstance(ProductDao productDao, ProductCategoryDao productCategoryDao, SupplierDao supplierDao) {
+        instance = new ProductService(productDao, productCategoryDao, supplierDao);
+    }
+
+    public Product getProductById(int id){
+        return productDao.find(id);
+    }
+
 
     public ProductCategory getProductCategory(int categoryId){
         return productCategoryDao.find(categoryId);
@@ -35,6 +53,7 @@ public class ProductService{
             return productDao.getBy(category);
         }
     }
+
 
     public List<ProductCategory> getAllCategories(){
         return productCategoryDao.getAll();

@@ -1,4 +1,4 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dao.implementation.jdbc;
 
 
 import com.codecool.shop.dao.CartDao;
@@ -7,28 +7,25 @@ import com.codecool.shop.model.Product;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartDaoMem implements CartDao {
+public class CartDaoJDBC implements CartDao {
     private DataSource dataSource;
     private List<CartProduct> data = new ArrayList<>();
-    private static CartDaoMem instance = null;
+    private static CartDaoJDBC instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
      */
-    private CartDaoMem() {
-        try {
-            dataSource = DatabaseManager.connect();
-        }catch (SQLException e){
-            System.out.println("Couldn't connect to database!");
-        }
+    private CartDaoJDBC(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-    public static CartDaoMem getInstance() {
-        if (instance == null) {
-            instance = new CartDaoMem();
+    public static CartDaoJDBC getInitialInstance(DataSource dataSource) {
+        if (instance == null){
+            instance = new CartDaoJDBC(dataSource);
+        } else {
+            throw new Error();  // Database was already created using current class
         }
         return instance;
     }
@@ -41,11 +38,11 @@ public class CartDaoMem implements CartDao {
     @Override
     public void edit(int amount, int id) {
         CartProduct cartProduct = find(id);
-            if (cartProduct.getAmount() + amount < 1) {
-                data.remove(cartProduct);
-            } else {
-                cartProduct.setAmount(cartProduct.getAmount() + amount);
-            }
+        if (cartProduct.getAmount() + amount < 1) {
+            data.remove(cartProduct);
+        } else {
+            cartProduct.setAmount(cartProduct.getAmount() + amount);
+        }
     }
 
     @Override

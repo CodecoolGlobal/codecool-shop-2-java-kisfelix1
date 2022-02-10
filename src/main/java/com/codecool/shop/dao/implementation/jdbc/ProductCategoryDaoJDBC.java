@@ -1,10 +1,8 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dao.implementation.jdbc;
 
 
 import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -14,26 +12,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCategoryDaoMem implements ProductCategoryDao {
+public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     private DataSource dataSource;
-    private static ProductCategoryDaoMem instance = null;
+    private static ProductCategoryDaoJDBC instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
      */
-    private ProductCategoryDaoMem() {
-        try {
-            dataSource = DatabaseManager.connect();
-        }catch(SQLException e){
-            System.out.println("Couldn't connect to the database!");
-        }
+    private ProductCategoryDaoJDBC(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-    public static ProductCategoryDaoMem getInstance() {
-        if (instance == null) {
-            instance = new ProductCategoryDaoMem();
+    public static ProductCategoryDaoJDBC getInitialInstance(DataSource dataSource) {
+        if (instance == null){
+            instance = new ProductCategoryDaoJDBC(dataSource);
+        } else {
+            throw new Error();  // Database was already created using current class
         }
         return instance;
     }
+
 
     @Override
     public ProductCategory find(int id) {
@@ -52,6 +49,8 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
             throw new RuntimeException(e);
         }
     }
+
+
 
     @Override
     public List<ProductCategory> getAll() {
