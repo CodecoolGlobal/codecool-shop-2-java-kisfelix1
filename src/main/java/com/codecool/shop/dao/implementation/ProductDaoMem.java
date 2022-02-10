@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 public class ProductDaoMem implements ProductDao {
     private DataSource dataSource;
-    private List<Product> data = new ArrayList<>();
     private static ProductDaoMem instance = null;
     private static ProductCategoryDaoMem productCategoryDaoMem;
     private static SupplierDaoMem supplierDaoMem;
@@ -42,12 +41,6 @@ public class ProductDaoMem implements ProductDao {
     }
 
     @Override
-    public void add(Product product) {
-        product.setId(data.size() + 1);
-        data.add(product);
-    }
-
-    @Override
     public Product find(int id) {
         try(Connection connection = dataSource.getConnection()){
             String sql = "SELECT id, product_name, price, currency, description, image_path, supplier_id, category_id FROM product WHERE id = ?";
@@ -69,11 +62,6 @@ public class ProductDaoMem implements ProductDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public void remove(int id) {
-        data.remove(find(id));
     }
 
     @Override
