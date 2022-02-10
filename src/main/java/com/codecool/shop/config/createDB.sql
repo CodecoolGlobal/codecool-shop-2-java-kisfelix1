@@ -54,8 +54,8 @@ INSERT INTO product VALUES (1,'M4A4 | Howl',2000,'USD','CS:GO digital skin. Get 
 INSERT INTO product VALUES (2,'M4A4 | Poseidon',1556,'USD','CS:GO digital skin. A mostly rare skin with rare condition. Feel the power of the sea!','product_2.jpg',1,2);
 INSERT INTO product VALUES (3,'AWP | Dragon lore',2000,'USD','CS:GO digital skin. A nice skin with nordic motives and a nice dragon art.','product_3.jpg',1,2);
 INSERT INTO product VALUES (4,'M4A1 | Imminent Danger',239,'USD','CS:GO digital skin. Warn others as you take the lead on the battlefield.','product_4.jpg',1,2);
-INSERT INTO product VALUES (5,'M9 Bayonet | Crimson Web',258,'USD','CS:GO digital skin. A knife with red color and a black web design on the middle.','product_1.jpg',1,2);
-INSERT INTO product VALUES (6,'Classic Knife',214,'USD','CS:GO digital skin. Feel the old times with this peace of art!','product_1.jpg',3,1);
+INSERT INTO product VALUES (5,'M9 Bayonet | Crimson Web',258,'USD','CS:GO digital skin. A knife with red color and a black web design on the middle.','product_1.jpg',1,1);
+INSERT INTO product VALUES (6,'Classic Knife',214,'USD','CS:GO digital skin. Feel the old times with this peace of art!','product_1.jpg',1,1);
 INSERT INTO product VALUES (7,'Kitchen Knife',64,'USD','A quality knife. Perfect for cutting meat and vegetables!','product_1.jpg',3,1);
 INSERT INTO product VALUES (8,'Golden monkey art',2999,'USD','A digital art from a golden monkey','product_1.jpg',2,3);
 INSERT INTO product VALUES (9,'Intelligent gorilla art',699,'USD','A digital art from a very intelligent gorilla','product_1.jpg',2,3);

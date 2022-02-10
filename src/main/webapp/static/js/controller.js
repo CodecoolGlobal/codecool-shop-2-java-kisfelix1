@@ -1,4 +1,11 @@
-import {getCart, getProductsFiltered, sendProductToCart, sendEmailToBackend, editCartContent} from "./model.js";
+import {
+    getCart,
+    getProductsFiltered,
+    sendProductToCart,
+    sendEmailToBackend,
+    editCartContent,
+    checkCorrectLogin
+} from "./model.js";
 import {
     addEventListener,
     showProducts,
@@ -15,6 +22,7 @@ async function initialize(){
     addEventListener('#suppliers', loadFilteredProducts);
     addEventListener('#paypal-id', modalPaymentPaypalChange);
     addEventListener('#creditcard-id',modalPaymentCreditChange);
+    addEventListener('#login-btn', loginUserCheck)
     modalCloseOpen();
     await doPayment();
 }
@@ -101,6 +109,12 @@ export async function editCart(e){
 
 function isProductRemoved(quantity, value){
     return quantity + value < 1
+}
+
+async function loginUserCheck() {
+    const email = document.querySelector("#login-email").value
+    const password = document.querySelector("#login-password").value
+    // await checkCorrectLogin("/api/user/login")
 }
 
 await initialize();

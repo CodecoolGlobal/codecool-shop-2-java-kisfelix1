@@ -50,7 +50,7 @@ public class ProductDaoMem implements ProductDao {
     @Override
     public Product find(int id) {
         try(Connection connection = dataSource.getConnection()){
-            String sql = "SELECT id, product_name, price, currency, description, image_url, supplier_id, category_id FROM product WHERE id = ?";
+            String sql = "SELECT id, product_name, price, currency, description, image_path, supplier_id, category_id FROM product WHERE id = ?";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
@@ -62,8 +62,8 @@ public class ProductDaoMem implements ProductDao {
                     rs.getString(4),
                     rs.getString(5),
                     rs.getString(6),
-                    productCategoryDaoMem.find(rs.getInt(7)),
-                    supplierDaoMem.find(rs.getInt(8)));
+                    productCategoryDaoMem.find(rs.getInt(8)),
+                    supplierDaoMem.find(rs.getInt(7)));
             product.setId(rs.getInt(1));
             return product;
         } catch (SQLException e) {
