@@ -5,6 +5,10 @@ function sendProductToCart(id){
     return getResponse(url);
 }
 
+export async function switchDbBtn(){
+    await getResponse("/api/switch_db")
+}
+
 async function getResponse(url) {
     const response = await fetch(url);
     return response.json();

@@ -23,11 +23,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     }
 
     public static ProductCategoryDaoJDBC getInitialInstance(DataSource dataSource) {
-        if (instance == null){
-            instance = new ProductCategoryDaoJDBC(dataSource);
-        } else {
-            throw new Error();  // Database was already created using current class
-        }
+        instance = new ProductCategoryDaoJDBC(dataSource);
         return instance;
     }
 

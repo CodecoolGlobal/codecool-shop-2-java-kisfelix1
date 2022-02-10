@@ -1,4 +1,4 @@
-import {getCart, getProductsFiltered, sendProductToCart, sendEmailToBackend, editCartContent} from "./model.js";
+import {getCart, getProductsFiltered, sendProductToCart, sendEmailToBackend, editCartContent, switchDbBtn} from "./model.js";
 import {
     addEventListener,
     showProducts,
@@ -16,6 +16,7 @@ async function initialize(){
     addEventListener('#paypal-id', modalPaymentPaypalChange);
     addEventListener('#creditcard-id',modalPaymentCreditChange);
     modalCloseOpen();
+    addEventListener("#switchDbBtn", switchDbBtn)
     await doPayment();
 }
 

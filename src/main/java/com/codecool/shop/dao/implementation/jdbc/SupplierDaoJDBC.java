@@ -22,11 +22,7 @@ public class SupplierDaoJDBC implements SupplierDao {
     }
 
     public static SupplierDaoJDBC getInitialInstance( DataSource dataSource) {
-        if (instance == null){
-            instance = new SupplierDaoJDBC(dataSource);
-        } else {
-            throw new Error();  // Database was already created using current class
-        }
+        instance = new SupplierDaoJDBC(dataSource);
         return instance;
     }
 

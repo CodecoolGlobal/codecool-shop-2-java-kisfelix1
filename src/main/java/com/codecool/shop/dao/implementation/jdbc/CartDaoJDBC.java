@@ -22,11 +22,7 @@ public class CartDaoJDBC implements CartDao {
     }
 
     public static CartDaoJDBC getInitialInstance(DataSource dataSource) {
-        if (instance == null){
-            instance = new CartDaoJDBC(dataSource);
-        } else {
-            throw new Error();  // Database was already created using current class
-        }
+        instance = new CartDaoJDBC(dataSource);
         return instance;
     }
 
