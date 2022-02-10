@@ -25,10 +25,7 @@ public class EmailRegisterServlet extends HttpServlet {
             buffer.append(line);
             buffer.append(System.lineSeparator());
         }
-        System.out.println(buffer);
         String data = buffer.toString();
-        System.out.println(data);
-        System.out.println("krisz2098@gmail.com");
         try {
             String htmlTemplate = templateEngine(req, resp, data);
             EmailUtil.sendEmail(data, htmlTemplate);
