@@ -1,4 +1,4 @@
-export {getProductsFiltered, getCart, sendProductToCart, sendEmailToBackend, editCartContent};
+export {getProductsFiltered, getCart, sendProductToCart, sendEmailToBackend, editCartContent, checkCorrectLogin, registerUserInDatabase, sendRegisterEmailToBackend};
 
 function sendProductToCart(id){
     const url = `/api/add_cart?itemId=${id}`;
@@ -23,7 +23,7 @@ async function PostResponse(url, data) {
         body: JSON.stringify(data),
     }
     const response = await fetch(url, setupObj);
-    console.log(response.json())
+    return response.json();
 }
 
 async function sendResponse(url, data) {
@@ -47,4 +47,16 @@ async function getCart() {
 
 async function sendEmailToBackend(emailAddress) {
     await sendResponse("/api/sendEmail", emailAddress)
+}
+
+async function sendRegisterEmailToBackend(emailAddress) {
+    await sendResponse("/api/sendRegisterEmail", emailAddress)
+}
+
+async function checkCorrectLogin(url, data) {
+    return await PostResponse(url, data);
+}
+
+async function registerUserInDatabase(url, data) {
+    await PostResponse(url, data)
 }

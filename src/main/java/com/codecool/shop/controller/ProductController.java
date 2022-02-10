@@ -13,7 +13,6 @@ import com.codecool.shop.dao.implementation.mem.ProductDaoMem;
 import com.codecool.shop.dao.implementation.mem.SupplierDaoMem;
 import com.codecool.shop.service.CartService;
 import com.codecool.shop.service.ProductService;
-import com.codecool.shop.service.UserService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
