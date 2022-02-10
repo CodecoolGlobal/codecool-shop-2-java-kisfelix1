@@ -1,7 +1,6 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dao.implementation.jdbc;
 
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
@@ -12,32 +11,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SupplierDaoMem implements SupplierDao {
+public class SupplierDaoJDBC implements SupplierDao {
     DataSource dataSource;
-    private List<Supplier> data = new ArrayList<>();
-    private static SupplierDaoMem instance = null;
+    private static SupplierDaoJDBC instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
      */
-    private SupplierDaoMem() {
-        try {
-            dataSource = DatabaseManager.connect();
-        }catch(SQLException e){
-            System.out.println("Couldn't connect to the database!");
-        }
+    private SupplierDaoJDBC(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-    public static SupplierDaoMem getInstance() {
-        if (instance == null) {
-            instance = new SupplierDaoMem();
+    public static SupplierDaoJDBC getInitialInstance( DataSource dataSource) {
+        if (instance == null){
+            instance = new SupplierDaoJDBC(dataSource);
+        } else {
+            throw new Error();  // Database was already created using current class
         }
         return instance;
     }
 
     @Override
     public void add(Supplier supplier) {
-        supplier.setId(data.size() + 1);
-        data.add(supplier);
     }
 
     @Override
@@ -60,7 +54,6 @@ public class SupplierDaoMem implements SupplierDao {
 
     @Override
     public void remove(int id) {
-        data.remove(find(id));
     }
 
     @Override
