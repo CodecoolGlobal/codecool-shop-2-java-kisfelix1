@@ -1,8 +1,6 @@
 package com.codecool.shop.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 public class Cart extends BaseModel {
