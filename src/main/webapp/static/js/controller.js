@@ -4,7 +4,7 @@ import {
     sendProductToCart,
     sendEmailToBackend,
     editCartContent,
-    checkCorrectLogin, registerUserInDatabase
+    checkCorrectLogin, registerUserInDatabase, sendRegisterEmailToBackend
 } from "./model.js";
 import {
     addEventListener,
@@ -137,7 +137,8 @@ async function registerUser() {
     const password = document.querySelector("#register-password").value
     if (email.includes('@') && email.includes('.')) {
         if (name.includes(' ')) {
-            registerUserInDatabase("/api/user/register", {"name" : name, "email" : email, "password" : password})
+            await registerUserInDatabase("/api/user/register", {"name" : name, "email" : email, "password" : password});
+            setTimeout(() => {sendRegisterEmailToBackend(email); }, 1000);
         } else {
             error.innerText = "You have to write your full name!"
         }

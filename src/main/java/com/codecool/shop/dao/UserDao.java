@@ -5,4 +5,5 @@ public interface UserDao {
 
     void add(User user);
     User find(String email, String password);
+    String find(String email);
 }

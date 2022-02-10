@@ -66,4 +66,22 @@ public class UserDaoMem implements UserDao {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public String find(String email) {
+        try(Connection connection = dataSource.getConnection()){
+            String sql = "SELECT full_name FROM eshop_user WHERE email = ?";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (!rs.next()) { // first row was not found == no data was returned by the query
+                System.out.println("ERROR");
+                return null;
+            }
+            System.out.println(rs.getString(1));
+            return rs.getString(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
