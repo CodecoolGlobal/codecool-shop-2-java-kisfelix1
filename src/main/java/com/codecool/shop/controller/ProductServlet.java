@@ -2,8 +2,8 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.implementation.mem.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.mem.ProductDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.service.ProductService;
 import com.google.gson.Gson;
@@ -27,9 +27,7 @@ public class ProductServlet extends HttpServlet {
         String categoryId = req.getParameter("categoryId");
         String supplierId = req.getParameter("supplierId");
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        ProductService productService = new ProductService(productDataStore, productCategoryDataStore);
+        ProductService productService = ProductService.getInstance();
 
         List<Product> filteredProducts = productService.getFilteredProducts(categoryId, supplierId);
 

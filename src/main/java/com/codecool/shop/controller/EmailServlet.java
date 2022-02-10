@@ -2,14 +2,9 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.implementation.CartDaoMem;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.email.EmailUtil;
 import com.codecool.shop.model.CartProduct;
-import com.codecool.shop.service.ProductService;
+import com.codecool.shop.service.CartService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -20,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/api/sendEmail"})
@@ -44,8 +38,8 @@ public class EmailServlet extends HttpServlet {
     }
 
     private String templateEngine(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        CartDao cartDataStore = CartDaoMem.getInstance();
-        List<CartProduct> cart = cartDataStore.getAll();
+        CartService cartService = CartService.getInstance();
+        List<CartProduct> cart = cartService.getAll();
         double totalPrice = calculatePrice(cart);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());

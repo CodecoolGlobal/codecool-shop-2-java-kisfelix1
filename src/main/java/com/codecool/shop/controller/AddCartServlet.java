@@ -1,9 +1,9 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.dao.implementation.CartDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.service.CartService;
+import com.codecool.shop.service.ProductService;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -22,14 +22,15 @@ public class AddCartServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         String itemId = req.getParameter("itemId");
-        Product item = ProductDaoMem
-                .getInstance()
-                .find(Integer.parseInt(itemId));
-        CartDao cart = CartDaoMem.getInstance();
-        if (cart.find(item.getId()) != null) {
-            cart.edit(1, item.getId());
+
+        ProductService productService = ProductService.getInstance();
+        Product item = productService.getProductById(Integer.parseInt(itemId));
+        CartService cartService = CartService.getInstance();
+
+        if (cartService.find(item.getId()) != null) {
+            cartService.edit(1, item.getId());
         } else {
-            cart.add(item, 1);
+            cartService.add(item, 1);
         }
         String json = new Gson().toJson(item.getName() + "added to cart");
 
