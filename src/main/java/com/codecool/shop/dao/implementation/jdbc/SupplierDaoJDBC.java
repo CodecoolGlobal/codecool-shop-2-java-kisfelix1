@@ -30,9 +30,6 @@ public class SupplierDaoJDBC implements SupplierDao {
         return instance;
     }
 
-    @Override
-    public void add(Supplier supplier) {
-    }
 
     @Override
     public Supplier find(int id) {
@@ -52,9 +49,6 @@ public class SupplierDaoJDBC implements SupplierDao {
         }
     }
 
-    @Override
-    public void remove(int id) {
-    }
 
     @Override
     public List<Supplier> getAll() {

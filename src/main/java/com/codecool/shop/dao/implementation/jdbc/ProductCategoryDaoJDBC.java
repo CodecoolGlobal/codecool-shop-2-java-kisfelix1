@@ -31,9 +31,6 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         return instance;
     }
 
-    @Override
-    public void add(ProductCategory category) {
-    }
 
     @Override
     public ProductCategory find(int id) {
@@ -53,9 +50,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         }
     }
 
-    @Override
-    public void remove(int id) {
-    }
+
 
     @Override
     public List<ProductCategory> getAll() {
