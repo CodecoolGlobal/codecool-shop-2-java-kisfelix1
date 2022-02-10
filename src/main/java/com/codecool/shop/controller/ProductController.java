@@ -15,11 +15,14 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
 
+    private int counter = 0;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         if (DbConfig.hasDbConfigChanged()){
             DbConfig.setupDbConnection();
+            counter = 1;
         }
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());

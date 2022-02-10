@@ -61,12 +61,11 @@ public class ProductService{
 
 
     public List<Supplier> getAllSuppliers() {
-        return SupplierDaoMem.getInstance().getAll();
+        return supplierDao.getAll();
     }
 
     public List<Product> getFilteredProducts(String categoryId, String supplierId) {
-        return ProductDaoMem
-                .getInstance()
+        return productDao
                 .getAll()
                 .stream()
                 .filter(product -> (product

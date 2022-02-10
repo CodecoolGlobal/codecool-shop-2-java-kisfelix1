@@ -1,1 +1,1 @@
-jdbc nftWebshopDb postgres 1337
+memory nftWebshopDb postgres 1337
