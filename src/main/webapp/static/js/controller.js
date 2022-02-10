@@ -1,4 +1,11 @@
-import {getCart, getProductsFiltered, sendProductToCart, sendEmailToBackend, editCartContent} from "./model.js";
+import {
+    getCart,
+    getProductsFiltered,
+    sendProductToCart,
+    sendEmailToBackend,
+    editCartContent,
+    checkCorrectLogin, registerUserInDatabase, sendRegisterEmailToBackend
+} from "./model.js";
 import {
     addEventListener,
     showProducts,
@@ -15,6 +22,9 @@ async function initialize(){
     addEventListener('#suppliers', loadFilteredProducts);
     addEventListener('#paypal-id', modalPaymentPaypalChange);
     addEventListener('#creditcard-id',modalPaymentCreditChange);
+    addEventListener('#login-btn', loginUserCheck)
+    addEventListener('#register-btn', registerUser)
+    addEventListener("#logout", logoutUser)
     modalCloseOpen();
     await doPayment();
 }
@@ -101,6 +111,61 @@ export async function editCart(e){
 
 function isProductRemoved(quantity, value){
     return quantity + value < 1
+}
+
+async function loginUserCheck() {
+    const email = document.querySelector("#login-email").value
+    const password = document.querySelector("#login-password").value
+    let databaseLogin = await checkCorrectLogin("/api/user/login", { "email" : email, "password" : password})
+    if (databaseLogin == null) {
+        document.getElementById("login-error").innerText = "Email or Password was incorrect! Please try again!"
+    } else {
+        document.getElementById("login-email").value = ""
+        document.getElementById("login-password").value = ""
+        localStorage.setItem("user_id", databaseLogin.id)
+        localStorage.setItem("user_name", databaseLogin.name)
+        document.getElementById("userNamePlace").innerText = databaseLogin.name
+        document.getElementById("close-modal").click()
+        checkUserInSession()
+    }
+}
+
+async function registerUser() {
+    const error = document.getElementById("register-error")
+    const name = document.querySelector('#register-name').value
+    const email = document.querySelector("#register-email").value
+    const password = document.querySelector("#register-password").value
+    if (email.includes('@') && email.includes('.')) {
+        if (name.includes(' ')) {
+            await registerUserInDatabase("/api/user/register", {"name" : name, "email" : email, "password" : password});
+            setTimeout(() => {sendRegisterEmailToBackend(email); }, 1000);
+        } else {
+            error.innerText = "You have to write your full name!"
+        }
+    } else {
+        error.innerText = "Wrong email format. Please try again!"
+    }
+}
+
+function logoutUser() {
+    localStorage.removeItem("user_id")
+    localStorage.removeItem("user_name")
+    checkUserInSession()
+}
+
+function checkUserInSession() {
+    if (localStorage.getItem("user_id") != null) {
+        document.getElementById("login").style.display = 'none'
+        document.getElementById("register").style.display = 'none'
+        document.getElementById("logout").style.display = 'block'
+        document.getElementById("userName").style.display = 'block'
+    } else {
+        document.getElementById("login").style.display = 'block'
+        document.getElementById("register").style.display = 'block'
+        document.getElementById("logout").style.display = 'none'
+        document.getElementById("userName").style.display = 'none'
+        document.getElementById("userNamePlace").innerText = ""
+    }
 }
 
 await initialize();
