@@ -6,10 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,12 +28,13 @@ public class BaseTests {
                 "/home/emis/Projects/codecool/oop/week6/codecool-shop-2-java-kisfelix1/src/main/resources/chromedriver");
         driver = new ChromeDriver();
         driver.get("http://localhost:8080");
+        driver.manage().window().maximize();
     }
 
 
     @Test
     public void testGetTitle(){
-        String title = "Codecool Shop";
+        String title = "Codecool Shasdop";
         assertEquals(driver.getTitle(), title, "Title is not matching");
         System.out.println(driver.getTitle() + " : driver.getTitle() result.");
         System.out.println(title + " : our result.");
@@ -45,7 +44,6 @@ public class BaseTests {
 
     @Test
     public void testSelectOption(){
-        driver.manage().window().maximize();
         String option = "NFT";
         findDropDownElement(categories).selectByVisibleText(option);
         var selectedOptions = getSelectedOption();
@@ -66,7 +64,6 @@ public class BaseTests {
 
     @Test
     public void testAddItemToCartAndClickViewButton() throws InterruptedException {
-        driver.manage().window().maximize();
         String option = "NFT";
         findDropDownElement(categories).selectByVisibleText(option);
         By toxiDogoButton = By.xpath("//button[@data-btn-id='15']");
@@ -81,8 +78,7 @@ public class BaseTests {
 
 
     @Test
-    public void testAddItemToCartAndClickToCheckoutAndFillAllInputField() throws InterruptedException {
-        driver.manage().window().maximize();
+    public void testAddItemToCartAndClickToCheckoutAndFillAllInputFields() throws InterruptedException {
         String option = "OpenSea";
         findDropDownElement(supplier).selectByVisibleText(option);
         By coolBombArt = By.xpath("//button[@data-btn-id='12']");
@@ -98,19 +94,65 @@ public class BaseTests {
         By nameOnTheCard = By.id("name-on-the-card");
         By paymentButton = By.id("payment-button");
 
-
-        driver.findElement(emailInput).sendKeys("alma@test.hu");
-        //driver.findElement(emailInput).sendKeys("emistest10@gmail.com");
+        driver.findElement(emailInput).sendKeys("emistest10@gmail.com");
         driver.findElement(cardNumber).sendKeys("123456789012");
         driver.findElement(MMYY).sendKeys("729");
         driver.findElement(cvvCode).sendKeys("123");
         driver.findElement(nameOnTheCard).sendKeys("Bence Szabó");
 
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         driver.findElement(paymentButton).click();
         driver.quit();
     }
 
+    @Test
+    public void testLogin() throws InterruptedException {
+
+        By loginButton = By.id("login");
+        By userNameText = By.id("userNamePlace");
+        By loginInputEmail = By.id("login-email");
+        By loginInputPassword = By.id("login-password");
+        By loginAlertButton = By.id("login-btn");
+
+        driver.findElement(loginButton).click();
+        Thread.sleep(1000);
+        driver.findElement(loginInputEmail).sendKeys("emistest10@gmail.com");
+        driver.findElement(loginInputPassword).sendKeys("sajt123");
+        Thread.sleep(1000);
+        driver.findElement(loginAlertButton).click();
+        Thread.sleep(1000);
+
+        assertEquals(driver.findElement(userNameText).getText(), "Bence Szabo","Username is not valid" );
+
+        System.out.println(driver.findElement(userNameText).getText());
+        System.out.println("Bence Szabo");
+
+        driver.quit();
+    }
+
+    @Test
+    public void testRegistrationAndLogin() throws InterruptedException {
+
+        By registrationButton = By.id("register");
+        By registerName = By.id("register-name");
+        By registerEmail = By.id("register-email");
+        By registerPassword = By.id("register-password");
+        By registrationAlertButton = By.id("register-btn");
+        By registrationAlertCloseButton = By.id("modal-close");
+
+        driver.findElement(registrationButton).click();
+        Thread.sleep(1000);
+        driver.findElement(registerName).sendKeys("Bence Szabo");
+        driver.findElement(registerEmail).sendKeys("emistest10@gmail.com");
+        driver.findElement(registerPassword).sendKeys("sajt123");
+        Thread.sleep(1000);
+        driver.findElement(registrationAlertButton).click();
+        Thread.sleep(1000);
+        driver.findElement(registrationAlertCloseButton).click();
+
+       testLogin();
+
+    }
 
 
 }
